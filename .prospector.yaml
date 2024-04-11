@@ -1,0 +1,8 @@
+strictness: veryhigh
+doc-warnings: yes
+
+pylint:
+  run: true
+
+mypy:
+  run: true
