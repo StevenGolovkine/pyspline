@@ -2,6 +2,7 @@
 
 # VS code file
 *.code-workspace
+.vscode/
 
 # macOS file
 .DS_Store
