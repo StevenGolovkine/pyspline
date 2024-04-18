@@ -11,7 +11,7 @@ from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 
 
-class TemplateEstimator(BaseEstimator, RegressorMixin):
+class PSplines(BaseEstimator, RegressorMixin):
     """A template estimator to be used as a reference implementation.
 
     For more information regarding how to build your own estimator, read more
