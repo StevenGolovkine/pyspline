@@ -6,6 +6,7 @@ Array manipulation function
 ---------------------------
 
 """
+
 import numpy as np
 import numpy.typing as npt
 

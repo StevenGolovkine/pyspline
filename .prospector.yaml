@@ -6,3 +6,6 @@ pylint:
 
 mypy:
   run: true
+
+pydocstyle:
+  run: false
