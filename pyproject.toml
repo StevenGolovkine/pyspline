@@ -41,14 +41,34 @@ repository = "https://github.com/StevenGolovkine/pyspline"
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+# Setup tools
 [tool.setuptools.packages.find]
 include = ["pyspline*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "pyspline.__version__"}
 
+# Distutils
+[tool.distutils.bdist_wheel]
+universal = true
+
+# Ruff
 [tool.ruff]
 line-length = 80
 
 [tool.ruff.lint]
 extend-select = ["E501"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+# Mypy
+[tool.mypy]
+strict = true
+strict_equality = true
+implicit_reexport = true
+plugins = "numpy.typing.mypy_plugin"
+
+[[tool.mypy.overrides]]
+module = "mypy-pandas.*, mypy-scipy.*, mypy-sklearn.*"
+ignore_missing_imports = true
