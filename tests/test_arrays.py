@@ -23,9 +23,9 @@ def data_wrong():
 
 
 def test_row_tensor_with_y(data):
-    expected_result = np.array(
-        [[5.0, 6.0, 7.0, 10.0, 12.0, 14.0], [21.0, 24.0, 27.0, 28.0, 32.0, 36.0]]
-    )
+    expected_result = np.array([
+        [5.0, 6.0, 7.0, 10.0, 12.0, 14.0], [21.0, 24.0, 27.0, 28.0, 32.0, 36.0]
+    ])
     result = row_tensor(data["x"], data["y"])
     np.testing.assert_array_equal(result, expected_result)
 
