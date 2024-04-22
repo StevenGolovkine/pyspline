@@ -29,4 +29,6 @@ jobs:
         run: ruff check .
 
       - name: Mypy
-        run: mypy --strict .
+        run: |
+          pip install numpy
+          mypy --strict .
