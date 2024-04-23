@@ -115,4 +115,4 @@ def basis_bsplines(
     mask = np.zeros((len(argvals), len(sk)))
     for idx, val in enumerate(argvals):
         mask[idx, :] = val < sk
-    return (basis_mat * mask).T
+    return (basis_mat * mask).T  # type: ignore
