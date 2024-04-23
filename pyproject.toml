@@ -67,8 +67,17 @@ convention = "numpy"
 strict = true
 strict_equality = true
 implicit_reexport = true
+explicit_package_bases = true
 plugins = "numpy.typing.mypy_plugin"
 
 [[tool.mypy.overrides]]
-module = "mypy-pandas.*, mypy-scipy.*, mypy-sklearn.*"
+module = ["pandas.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["scipy.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*"]
 ignore_missing_imports = true
