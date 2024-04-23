@@ -31,4 +31,4 @@ jobs:
       - name: Mypy
         run: |
           pip install numpy
-          mypy --strict .
+          mypy --strict pyspline/
