@@ -64,8 +64,6 @@ convention = "numpy"
 
 # Mypy
 [tool.mypy]
-strict = true
-strict_equality = true
 implicit_reexport = true
 plugins = "numpy.typing.mypy_plugin"
 

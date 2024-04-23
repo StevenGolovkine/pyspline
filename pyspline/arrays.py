@@ -12,8 +12,8 @@ import numpy.typing as npt
 
 
 def row_tensor(
-    x: npt.NDArray[np.float64], y: npt.NDArray[np.float64] | None = None
-) -> npt.NDArray[np.float64]:
+    x: npt.NDArray[np.float_], y: npt.NDArray[np.float_] | None = None
+) -> npt.NDArray[np.float_]:
     """
     Compute the row-wise tensor product of two 2D arrays.
 
@@ -24,9 +24,9 @@ def row_tensor(
 
     Parameters
     ----------
-    x: npt.NDArray[np.float64]
+    x: npt.NDArray[np.float_]
         A 2D array of shape `(m, n)`.
-    y: npt.NDArray[np.float64] | None, default=None
+    y: npt.NDArray[np.float_] | None, default=None
         A 2D array of shape `(m, q)`. If not provided, it defaults to `x`.
 
     Returns
@@ -71,8 +71,8 @@ def row_tensor(
 
 
 def h_transform(
-    x: npt.NDArray[np.float64], y: npt.NDArray[np.float64]
-) -> npt.NDArray[np.float64]:
+    x: npt.NDArray[np.float_], y: npt.NDArray[np.float_]
+) -> npt.NDArray[np.float_]:
     """
     Compute the H-transform of a nD array `y` with respect to a 2D array `x`.
 
@@ -82,14 +82,14 @@ def h_transform(
 
     Parameters
     ----------
-    x: npt.NDArray[np.float64]
+    x: npt.NDArray[np.float_]
         A 2D array of shape `(n, m)`.
-    y: npt.NDArray[np.float64]
+    y: npt.NDArray[np.float_]
         A nD array of shape `(m, n1, n2, ..., nk)`.
 
     Returns
     -------
-    npt.NDArray[np.float64]
+    npt.NDArray[np.float_]
         A nD array of shape `(n, n1, n2, ..., nk)`.
 
     Notes

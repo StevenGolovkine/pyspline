@@ -13,22 +13,22 @@ from math import gamma
 
 
 def tpower(
-    x: npt.NDArray[np.float64], knots: npt.NDArray[np.float64], p: int = 3
-) -> npt.NDArray[np.float64]:
+    x: npt.NDArray[np.float_], knots: npt.NDArray[np.float_], p: int = 3
+) -> npt.NDArray[np.float_]:
     """Compute truncated power functions.
 
     Parameters
     ----------
-    x: npt.NDArray[np.float64], shape=(n, )
+    x: npt.NDArray[np.float_], shape=(n, )
         An array on which the functions are calculated.
-    knots: npt.NDArray[np.float64], shape=(m, )
+    knots: npt.NDArray[np.float_], shape=(m, )
         An array giving the truncation points.
     p: int, default=3
         Degree of the basis. The default gives cubic truncated power functions.
 
     Returns
     -------
-    npt.NDArray[np.float64], shape=(n, m)
+    npt.NDArray[np.float_], shape=(n, m)
         An array containing the truncated power functions.
 
     """
@@ -39,12 +39,12 @@ def tpower(
 
 
 def basis_bsplines(
-    argvals: npt.NDArray[np.float64],
+    argvals: npt.NDArray[np.float_],
     n_functions: int = 10,
     degree: int = 3,
     domain_min: float | None = None,
     domain_max: float | None = None,
-) -> npt.NDArray[np.float64]:
+) -> npt.NDArray[np.float_]:
     """Define a B-splines basis of functions.
 
     Build a basis of :math:`n_functions` functions using B-splines basis on the
@@ -53,7 +53,7 @@ def basis_bsplines(
 
     Parameters
     ----------
-    argvals: npt.NDArray[np.float64]
+    argvals: npt.NDArray[np.float_]
         The values on which evaluated the B-splines.
     n_functions: int, default=10
         Number of considered B-splines.
@@ -91,9 +91,9 @@ def basis_bsplines(
     """
     # Set parameters
     if domain_min is None:
-        domain_min = np.min(argvals)
+        domain_min = min(argvals)
     if domain_max is None:
-        domain_max = np.max(argvals)
+        domain_max = max(argvals)
 
     # Compute the B-splines
     n_segments = n_functions - degree
