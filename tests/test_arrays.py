@@ -5,7 +5,7 @@
 import numpy as np
 import pytest
 
-from pyspline.arrays import row_tensor
+from pyspline.arrays import row_tensor, h_transform
 
 
 @pytest.fixture
@@ -21,11 +21,15 @@ def data_wrong():
     y = np.array([[1, 2]])
     return {"x": x, "y": y}
 
-
+###############################################################################
+# Tests row_tensor
 def test_row_tensor_with_y(data):
-    expected_result = np.array([
-        [5.0, 6.0, 7.0, 10.0, 12.0, 14.0], [21.0, 24.0, 27.0, 28.0, 32.0, 36.0]
-    ])
+    expected_result = np.array(
+        [
+            [5.0, 6.0, 7.0, 10.0, 12.0, 14.0],
+            [21.0, 24.0, 27.0, 28.0, 32.0, 36.0],
+        ]
+    )
     result = row_tensor(data["x"], data["y"])
     np.testing.assert_array_equal(result, expected_result)
 
@@ -39,3 +43,16 @@ def test_row_tensor_without_y(data):
 def test_row_tensor_with_mismatched_shapes(data_wrong):
     with pytest.raises(ValueError):
         row_tensor(data_wrong["x"], data_wrong["y"])
+
+
+###############################################################################
+# Tests h_transform
+def test_h_transform(data):
+    expected_result = np.array([[19, 22, 25], [43, 50, 57]])
+    result = h_transform(data['x'], data['y'])
+    np.testing.assert_array_equal(result, expected_result)
+
+
+def test_h_transform_with_mismatched_shapes(data_wrong):
+    with pytest.raises(ValueError):
+        h_transform(data_wrong['x'], data_wrong['y'])
