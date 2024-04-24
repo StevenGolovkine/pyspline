@@ -5,7 +5,13 @@
 import numpy as np
 import pytest
 
-from pyspline.arrays import row_tensor, h_transform
+from pyspline.arrays import (
+    row_tensor,
+    h_transform,
+    rotate,
+    rotated_h_transform,
+    create_permutation,
+)
 
 
 @pytest.fixture
@@ -20,6 +26,7 @@ def data_wrong():
     x = np.array([[1, 2], [3, 4]])
     y = np.array([[1, 2]])
     return {"x": x, "y": y}
+
 
 ###############################################################################
 # Tests row_tensor
@@ -49,10 +56,38 @@ def test_row_tensor_with_mismatched_shapes(data_wrong):
 # Tests h_transform
 def test_h_transform(data):
     expected_result = np.array([[19, 22, 25], [43, 50, 57]])
-    result = h_transform(data['x'], data['y'])
+    result = h_transform(data["x"], data["y"])
     np.testing.assert_array_equal(result, expected_result)
 
 
 def test_h_transform_with_mismatched_shapes(data_wrong):
     with pytest.raises(ValueError):
-        h_transform(data_wrong['x'], data_wrong['y'])
+        h_transform(data_wrong["x"], data_wrong["y"])
+
+
+###############################################################################
+# Tests rotate
+def test_rotate(data):
+    expected_result = np.array([[1, 3], [2, 4]])
+    result = rotate(data["x"])
+    np.testing.assert_array_equal(result, expected_result)
+
+
+###############################################################################
+# Tests rotated_h_transform
+def test_rotated_h_transform(data):
+    expected_result = np.array([[19, 43], [22, 50], [25, 57]])
+    result = rotated_h_transform(data["x"], data["y"])
+    np.testing.assert_array_equal(result, expected_result)
+
+
+###############################################################################
+# Tests create_permutation
+def test_create_permutation():
+    expected_result = np.array([0, 3, 1, 4, 2, 5])
+    result = create_permutation(3, 2)
+    np.testing.assert_array_equal(result, expected_result)
+
+    expected_result = np.array([0, 2, 4, 1, 3, 5])
+    result = create_permutation(2, 3)
+    np.testing.assert_array_equal(result, expected_result)
