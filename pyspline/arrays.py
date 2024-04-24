@@ -31,7 +31,7 @@ def row_tensor(
 
     Returns
     -------
-    npt.NDArray[np.float64]
+    npt.NDArray[np.float_]
         A 2D array of shape `(m, n*q)` or `(m, n*n)` if `y` is not provided.
 
     Examples
