@@ -6,13 +6,18 @@ P-Splines
 
 """
 
+from __future__ import annotations
+
 import numpy as np
+import numpy.typing as npt
+
+from typing import Tuple
 
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 
 
-class PSplines(BaseEstimator, RegressorMixin):
+class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
     """A template estimator to be used as a reference implementation.
 
     For more information regarding how to build your own estimator, read more
@@ -34,10 +39,26 @@ class PSplines(BaseEstimator, RegressorMixin):
     TemplateEstimator()
     """
 
-    def __init__(self, demo_param="demo_param"):
-        self.demo_param = demo_param
+    def __init__(
+        self,
+        penalty: float = 1.0,
+        *,
+        n_segments: Tuple[int] = (10,),
+        degree: Tuple[int] = (3,),
+        order_penalty: int = 2,
+    ):
+        """Initializa PSplines object."""
+        self.penalty = penalty
+        self.n_segments = n_segments
+        self.degree = degree
+        self.order_penalty = order_penalty
 
-    def fit(self, X, y):
+    def fit(
+        self,
+        X: npt.NDArray[np.float_],
+        y: npt.NDArray[np.float_],
+        sample_weight: npt.NDArray[np.float_] | None = None,
+    ) -> PSplines:
         """A reference implementation of a fitting function.
 
         Parameters
@@ -58,7 +79,7 @@ class PSplines(BaseEstimator, RegressorMixin):
         # `fit` should always return `self`
         return self
 
-    def predict(self, X):
+    def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
         """A reference implementation of a predicting function.
 
         Parameters

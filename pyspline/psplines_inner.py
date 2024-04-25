@@ -2,8 +2,8 @@
 # -*-coding:utf8 -*
 
 """
-P-Splines helper
-----------------
+P-Splines inner functions
+-------------------------
 
 """
 

@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 # -*-coding:utf8 -*
-"""Module that contains unit tests for the psplines_helper.py file."""
+"""Module that contains unit tests for the psplines_inner.py file."""
 
 import numpy as np
 import pytest
 
-from pyspline.psplines_helper import tensor_product_penalties
+from pyspline.psplines_inner import tensor_product_penalties
 
 
 @pytest.fixture
