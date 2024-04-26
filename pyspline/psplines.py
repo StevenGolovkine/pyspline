@@ -14,7 +14,12 @@ import numpy.typing as npt
 from typing import Tuple
 
 from sklearn.base import BaseEstimator, RegressorMixin
-from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from sklearn.utils.validation import (
+    check_X_y,
+    check_array,
+    check_is_fitted,
+    _check_sample_weight,
+)
 
 
 class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
@@ -74,7 +79,13 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self : object
             Returns self.
         """
-        X, y = check_X_y(X, y, accept_sparse=True)
+        X, y = check_X_y(X, y)
+
+        if sample_weight is not None:
+            sample_weight = _check_sample_weight(
+                sample_weight, X, dtype=X.dtype
+            )
+
         self.is_fitted_ = True
         # `fit` should always return `self`
         return self

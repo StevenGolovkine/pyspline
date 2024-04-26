@@ -7,9 +7,20 @@ Welcome to pyspline's documentation!
 ====================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :titlesonly:
+   :hidden:
 
+   auto_examples/index
+
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+   :hidden:
+   :caption: More documentation
+
+   modules
 
 
 Indices and tables
