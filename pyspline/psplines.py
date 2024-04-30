@@ -21,17 +21,36 @@ from sklearn.utils.validation import (
     _check_sample_weight,
 )
 
+from .basis import basis_bsplines
+
 
 class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
-    """A template estimator to be used as a reference implementation.
+    """P-Splines Smoothing.
 
     For more information regarding how to build your own estimator, read more
     in the :ref:`User Guide <user_guide>`.
 
     Parameters
     ----------
-    demo_param : str, default='demo_param'
-        A parameter used for demonstation of how to pass and store paramters.
+    penalty: Tuple[float], default=(1.0,)
+        A tuple of penalty parameters for each dimension.
+    n_segments: Tuple[int], default=(10,)
+        The number of evenly spaced segments.
+    degree: Tuple[int], default=(3,)
+        The number of the degree of the basis.
+    order_penalty: int, default=2
+        The number of the order of the difference penalty.
+
+    Notes
+    -----
+    This code is adapted from _[2]. See [1]_ for more details.
+
+    References
+    ----------
+    .. [1] Eilers, P., Marx, B.D., (2021) Practical Smoothing: The Joys of
+        P-splines. Cambridge University Press, Cambridge.
+    .. [2] Eilers, P., Marx, B., Li, B., Gampe, J., Rodriguez-Alvarez, M.X.,
+        (2023) JOPS: Practical Smoothing with P-Splines.
 
     Examples
     --------
@@ -46,7 +65,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
     def __init__(
         self,
-        penalty: float = 1.0,
+        penalty: Tuple[float] = (1.0,),
         *,
         n_segments: Tuple[int] = (10,),
         degree: Tuple[int] = (3,),
@@ -86,7 +105,23 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 sample_weight, X, dtype=X.dtype
             )
 
+        dimension = X.shape[1]
+
+        # Build the B-splines basis
+        basis = [
+            basis_bsplines(
+                argvals=argvals, n_functions=n_segments + degree, degree=degree
+            )
+            for argvals, n_segments, degree in zip(
+                X,
+                self.n_segments,
+                self.degree,
+            )
+        ]
+
         self.is_fitted_ = True
+        self.dimension_ = dimension
+        self.basis = basis
         # `fit` should always return `self`
         return self
 
