@@ -83,20 +83,29 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         y: npt.NDArray[np.float_],
         sample_weight: npt.NDArray[np.float_] | None = None,
     ) -> PSplines:
-        """A reference implementation of a fitting function.
+        """Fit a P-splines model to the given data.
+
+        The method fits a P-splines model to the given data using a B-splines
+        basis and an optional weights matrix.
 
         Parameters
         ----------
-        X : {array-like, sparse matrix}, shape (n_samples, n_features)
-            The training input samples.
-        y : array-like, shape (n_samples,) or (n_samples, n_outputs)
-            The target values (class labels in classification, real numbers in
-            regression).
+        X: Union[List[npt.NDArray[np.float64]], npt.NDArray[np.float64]]
+            A 1D or a list of 1D arrays of shape `(n1,), (n2,), ..., (nk,)`
+            containing the predictor variable values.
+        y: npt.NDArray[np.float64]
+            An nD array of shape `(n1, n2, ..., nk)` containing the response
+            variable values.
+        sample_weights: npt.NDArray[np.float64] | None, default=None
+            An N-dimensional array of shape `(n1, n2, ..., nk)` containing the
+            weights for each observation. If not provided, all observations are
+            assumed to have equal weight.
 
         Returns
         -------
-        self : object
+        self: PSplines
             Returns self.
+
         """
         X, y = check_X_y(X, y)
 
@@ -126,17 +135,24 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
-        """A reference implementation of a predicting function.
+        """Predict the response variable values.
+
+        The method predicts the response variable values for the given predictor
+        variable values using the fitted P-splines model. If `X` is not
+        provided, the method returns the fitted values.
 
         Parameters
         ----------
-        X : {array-like, sparse matrix}, shape (n_samples, n_features)
-            The training input samples.
+        X: npt.NDArray[np.float64]]
+            A 1D or a list of one-dimensional arrays of shape
+            `(n1,), (n2,), ..., (nk,)` containing the predictor variable values.
 
         Returns
         -------
-        y : ndarray, shape (n_samples,)
-            Returns an array of ones.
+        npt.NDArray[np.float64]
+            An nD array of shape `(n1, n2, ..., nk)` containing the predicted
+            response variable values.
+
         """
         X = check_array(X, accept_sparse=True)
         check_is_fitted(self, "is_fitted_")
