@@ -90,16 +90,14 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         Parameters
         ----------
-        X: Union[List[npt.NDArray[np.float64]], npt.NDArray[np.float64]]
-            A 1D or a list of 1D arrays of shape `(n1,), (n2,), ..., (nk,)`
-            containing the predictor variable values.
-        y: npt.NDArray[np.float64]
-            An nD array of shape `(n1, n2, ..., nk)` containing the response
-            variable values.
+        X: npt.NDArray[np.float_], shape=(n_obs, n_dimension)
+            An array containing the predictor variable values.
+        y: npt.NDArray[np.float_], shape=(n_obs,)
+            An array containing the response variable values.
         sample_weights: npt.NDArray[np.float64] | None, default=None
-            An N-dimensional array of shape `(n1, n2, ..., nk)` containing the
-            weights for each observation. If not provided, all observations are
-            assumed to have equal weight.
+            An array of shape `(n_obs,)` containing the weights for each
+            observation. If not provided, all observations are assumed to have
+            equal weight.
 
         Returns
         -------
@@ -122,7 +120,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 argvals=argvals, n_functions=n_segments + degree, degree=degree
             )
             for argvals, n_segments, degree in zip(
-                X,
+                X.T,
                 self.n_segments,
                 self.degree,
             )
@@ -131,7 +129,6 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.is_fitted_ = True
         self.dimension_ = dimension
         self.basis = basis
-        # `fit` should always return `self`
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
