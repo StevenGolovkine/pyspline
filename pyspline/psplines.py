@@ -140,15 +140,13 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         Parameters
         ----------
-        X: npt.NDArray[np.float64]]
-            A 1D or a list of one-dimensional arrays of shape
-            `(n1,), (n2,), ..., (nk,)` containing the predictor variable values.
+        X: npt.NDArray[np.float_]
+            An array containing the predictor variable values.
 
         Returns
         -------
-        npt.NDArray[np.float64]
-            An nD array of shape `(n1, n2, ..., nk)` containing the predicted
-            response variable values.
+        npt.NDArray[np.float_]
+            An array containing the estimated response variable values.
 
         """
         X = check_array(X, accept_sparse=True)
