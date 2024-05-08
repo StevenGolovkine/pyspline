@@ -128,7 +128,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         self.is_fitted_ = True
         self.dimension_ = dimension
-        self.basis = basis
+        self.basis_ = basis
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
@@ -151,4 +151,17 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         """
         X = check_array(X, accept_sparse=True)
         check_is_fitted(self, "is_fitted_")
-        return np.ones(X.shape[0], dtype=np.int64)
+
+        # Build the B-splines basis
+        basis = [
+            basis_bsplines(
+                argvals=argvals, n_functions=n_segments + degree, degree=degree
+            )
+            for argvals, n_segments, degree in zip(
+                X.T,
+                self.n_segments,
+                self.degree,
+            )
+        ]
+
+        return basis
