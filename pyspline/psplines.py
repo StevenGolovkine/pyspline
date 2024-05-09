@@ -22,6 +22,7 @@ from sklearn.utils.validation import (
 )
 
 from .basis import basis_bsplines
+from .psplines_inner import fit_one_dimensional, fit_n_dimensional
 
 
 class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
@@ -126,9 +127,30 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
         ]
 
+        if self.dimension == 1:
+            res = fit_one_dimensional(
+                data=y,
+                basis=basis[0],
+                sample_weights=sample_weight,
+                penalty=self.penalty,
+                order_penalty=self.order_penalty,
+            )
+        else:
+            res = fit_n_dimensional(
+                data=y,
+                basis_list=basis,
+                sample_weights=sample_weight,
+                penalties=self.penalty,
+                order_penalty=self.order_penalty,
+            )
+
+        # Export results
         self.is_fitted_ = True
         self.dimension_ = dimension
         self.basis_ = basis
+        self.y_hat_ = res["y_hat"]
+        self.beta_hat_ = res["beta_hat"]
+        self.diagnostics_ = {"hat_matrix": res["hat_matrix"]}
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
