@@ -21,6 +21,7 @@ from sklearn.utils.validation import (
     _check_sample_weight,
 )
 
+from .arrays import rotated_h_transform
 from .basis import basis_bsplines
 from .psplines_inner import fit_one_dimensional, fit_n_dimensional
 
@@ -185,5 +186,12 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 self.degree,
             )
         ]
+
+        if self.dimension == 1:
+            y_pred = self.beta_hat @ self.basis_[0]
+        else:
+            y_pred = rotated_h_transform(self.basis_[0].T, self.beta_hat)
+            for idx in np.arange(1, len(self.basis_)):
+                y_pred = rotated_h_transform(self.basis_[idx].T, y_pred)
 
         return basis
