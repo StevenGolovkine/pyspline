@@ -128,6 +128,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
         ]
 
+        # Modify y in order to have the right shape to fit in the array algo.
+
         if self.dimension == 1:
             res = fit_one_dimensional(
                 data=y,
