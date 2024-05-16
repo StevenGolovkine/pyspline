@@ -34,4 +34,7 @@ def format_X_y(
             for point, points in zip(x, new_X)
         )
         new_y[indices] = obs
-    return new_X, new_y
+
+    weights = np.ones_like(new_y)
+    weights[new_y == 0] = 0
+    return new_X, new_y, weights
