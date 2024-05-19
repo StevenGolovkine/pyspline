@@ -13,7 +13,9 @@ import numpy.typing as npt
 
 def format_X_y(
     X: npt.NDArray[np.float_], y: npt.NDArray[np.float_]
-) -> tuple[list[npt.NDArray[np.float_]], npt.NDArray[np.float_]]:
+) -> tuple[
+    list[npt.NDArray[np.float_]], npt.NDArray[np.float_], npt.NDArray[np.float_]
+]:
     """Input formatter for multidimentsional estimator.
 
     Parameters
@@ -22,6 +24,15 @@ def format_X_y(
         An array containing the predictor variable values.
     y: npt.NDArray[np.float_], shape=(n_obs,)
         An array containing the response variable values.
+
+    Returns
+    -------
+    tuple[
+        list[npt.NDArray[np.float_]],
+        npt.NDArray[np.float_],
+        npt.NDArray[np.float_]
+    ]
+        A tuple containing the formatted X, y and an array of weights.
 
     """
     new_X = [np.unique(column) for column in X.T]
