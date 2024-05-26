@@ -23,6 +23,7 @@ from sklearn.utils.validation import (
 
 from .arrays import rotated_h_transform
 from .basis import basis_bsplines
+from .formatter import format_X_y
 from .psplines_inner import fit_one_dimensional, fit_n_dimensional
 
 
@@ -83,7 +84,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self,
         X: npt.NDArray[np.float_],
         y: npt.NDArray[np.float_],
-        sample_weight: npt.NDArray[np.float_] | None = None,
+        sample_weights: npt.NDArray[np.float_] | None = None,
     ) -> PSplines:
         """Fit a P-splines model to the given data.
 
@@ -109,9 +110,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         """
         X, y = check_X_y(X, y)
 
-        if sample_weight is not None:
-            sample_weight = _check_sample_weight(
-                sample_weight, X, dtype=X.dtype
+        if sample_weights is not None:
+            sample_weights = _check_sample_weight(
+                sample_weights, X, dtype=X.dtype
             )
 
         dimension = X.shape[1]
@@ -129,12 +130,13 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         ]
 
         # Modify y in order to have the right shape to fit in the array algo.
+        X, y, sample_weights = format_X_y(X, y)
 
         if self.dimension == 1:
             res = fit_one_dimensional(
                 data=y,
                 basis=basis[0],
-                sample_weights=sample_weight,
+                sample_weights=sample_weights,
                 penalty=self.penalty,
                 order_penalty=self.order_penalty,
             )
@@ -142,7 +144,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             res = fit_n_dimensional(
                 data=y,
                 basis_list=basis,
-                sample_weights=sample_weight,
+                sample_weights=sample_weights,
                 penalties=self.penalty,
                 order_penalty=self.order_penalty,
             )
