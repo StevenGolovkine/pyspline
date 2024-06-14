@@ -12,7 +12,9 @@ import numpy.typing as npt
 
 
 def format_X_y(
-    X: npt.NDArray[np.float_], y: npt.NDArray[np.float_]
+    X: npt.NDArray[np.float_],
+    y: npt.NDArray[np.float_],
+    weights: npt.NDArray[np.float_] | None = None,
 ) -> tuple[
     list[npt.NDArray[np.float_]], npt.NDArray[np.float_], npt.NDArray[np.float_]
 ]:
@@ -24,6 +26,10 @@ def format_X_y(
         An array containing the predictor variable values.
     y: npt.NDArray[np.float_], shape=(n_obs,)
         An array containing the response variable values.
+    weights: npt.NDArray[np.float_] | None, default=None
+        An array containing the sampled weights with the same shape as `y`. If
+        `None`, the weights are set to 1 for the observed values and 0
+        otherwise.
 
     Returns
     -------
@@ -46,6 +52,7 @@ def format_X_y(
         )
         new_y[indices] = obs
 
-    weights = np.ones_like(new_y)
-    weights[new_y == 0] = 0
+    if weights is None:
+        weights = np.ones_like(new_y)
+        weights[new_y == 0] = 0
     return new_X, new_y, weights

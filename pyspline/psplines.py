@@ -117,6 +117,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         dimension = X.shape[1]
 
+        # Modify y in order to have the right shape to fit in the array algo.
+        X, y, sample_weights = format_X_y(X, y, sample_weights)
+
         # Build the B-splines basis
         basis = [
             basis_bsplines(
@@ -128,9 +131,6 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 self.degree,
             )
         ]
-
-        # Modify y in order to have the right shape to fit in the array algo.
-        X, y, sample_weights = format_X_y(X, y)
 
         if self.dimension == 1:
             res = fit_one_dimensional(
