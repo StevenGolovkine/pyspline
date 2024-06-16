@@ -198,7 +198,7 @@ def fit_n_dimensional(
     data: npt.NDArray[np.float_],
     basis_list: list[npt.NDArray[np.float_]],
     sample_weights: npt.NDArray[np.float_] | None = None,
-    penalties: npt.NDArray[np.float_] | None = None,
+    penalties: tuple[float, ...] | None = None,
     order_penalty: int = 2,
 ) -> dict[str, npt.NDArray[np.float_]]:
     """
@@ -274,7 +274,7 @@ def fit_n_dimensional(
     if sample_weights is None:
         sample_weights = np.ones_like(data)
     if penalties is None:
-        penalties = np.ones(len(data.shape))
+        penalties = len(data.shape) * (1,)
 
     n_basis = tuple(basis.shape[0] for basis in basis_list)
     tensor_list = [row_tensor(basis.T) for basis in basis_list]
