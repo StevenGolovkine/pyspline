@@ -109,13 +109,12 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         """
         X, y = check_X_y(X, y)
+        dimension = X.shape[1]
 
         if sample_weights is not None:
             sample_weights = _check_sample_weight(
                 sample_weights, X, dtype=X.dtype
             )
-
-        dimension = X.shape[1]
 
         # Modify y in order to have the right shape to fit in the array algo.
         X, y, sample_weights = format_X_y(X, y, sample_weights)
@@ -126,13 +125,13 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 argvals=argvals, n_functions=n_segments + degree, degree=degree
             )
             for argvals, n_segments, degree in zip(
-                X.T,
+                X,
                 self.n_segments,
                 self.degree,
             )
         ]
 
-        if self.dimension == 1:
+        if dimension == 1:
             res = fit_one_dimensional(
                 data=y,
                 basis=basis[0],
@@ -153,6 +152,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.is_fitted_ = True
         self.dimension_ = dimension
         self.basis_ = basis
+        self.domains_ = [(np.min(xx), np.max(xx)) for xx in X]
         self.y_hat_ = res["y_hat"]
         self.beta_hat_ = res["beta_hat"]
         self.diagnostics_ = {"hat_matrix": res["hat_matrix"]}
@@ -180,22 +180,25 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         check_is_fitted(self, "is_fitted_")
 
         # Build the B-splines basis
+        new_X = [np.unique(column) for column in X.T]
         basis = [
             basis_bsplines(
-                argvals=argvals, n_functions=n_segments + degree, degree=degree
+                argvals=argvals,
+                n_functions=n_segments + degree,
+                degree=degree,
+                domain_min=domain[0],
+                domain_max=domain[1],
             )
-            for argvals, n_segments, degree in zip(
-                X.T,
-                self.n_segments,
-                self.degree,
+            for argvals, n_segments, degree, domain in zip(
+                new_X, self.n_segments, self.degree, self.domains_
             )
         ]
 
-        if self.dimension == 1:
-            y_pred = self.beta_hat @ self.basis_[0]
+        if self.dimension_ == 1:
+            y_pred = self.beta_hat_ @ basis[0]
         else:
-            y_pred = rotated_h_transform(self.basis_[0].T, self.beta_hat)
-            for idx in np.arange(1, len(self.basis_)):
-                y_pred = rotated_h_transform(self.basis_[idx].T, y_pred)
+            y_pred = rotated_h_transform(basis[0].T, self.beta_hat_)
+            for idx in np.arange(1, len(basis)):
+                y_pred = rotated_h_transform(basis[idx].T, y_pred)
 
-        return basis
+        return y_pred
