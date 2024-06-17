@@ -19,7 +19,6 @@ release = "v0.0.0"
 
 extensions = [
     "sphinx.ext.autodoc",
-    "numpydoc",
     "sphinx.ext.coverage",
     "sphinx.ext.napoleon",
     "sphinx.ext.mathjax",
