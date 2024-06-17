@@ -25,8 +25,12 @@ dependencies = [
 
 [project.optional-dependencies]
 docs = [
+    "matplotlib",
     "numpydoc",
     "pydata-sphinx-theme",
+    "scikit-learn",
+    "scipy",
+    "setuptools>=41.2",
     "sphinx>=3",
     "sphinx-gallery",
 ]
