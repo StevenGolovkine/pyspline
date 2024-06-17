@@ -22,6 +22,47 @@ Examples
     </div>
 
 
+JOPS
+----
+
+Examples from JOPS.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Show the essence of P-splines">
+
+.. only:: html
+
+  .. image:: /auto_examples/jops/images/thumb/sphx_glr_plot_essence_psplines_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_jops_plot_essence_psplines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Show the essence of P-splines</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+   :includehidden:
+
+
+   /auto_examples/jops/index.rst
+
+
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-gallery
@@ -29,6 +70,10 @@ Examples
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download all examples in Python source code: auto_examples_python.zip </auto_examples/auto_examples_python.zip>`
+
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip </auto_examples/auto_examples_jupyter.zip>`
 
 
 .. only:: html
