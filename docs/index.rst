@@ -7,11 +7,12 @@ Welcome to pyspline's documentation!
 ====================================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :titlesonly:
    :hidden:
 
    auto_examples/index
+   auto_jops_examples/index
 
 
 .. toctree::

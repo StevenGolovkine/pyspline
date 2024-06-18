@@ -12,43 +12,31 @@ Examples
 
 
 
-.. raw:: html
-
-    <div class="sphx-glr-thumbnails">
-
-
-.. raw:: html
-
-    </div>
-
-
-JOPS
-----
-
-Examples from JOPS.
-
 
 .. raw:: html
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Show the essence of P-splines">
+    <div class="sphx-glr-thumbcontainer" tooltip="Test">
 
 .. only:: html
 
-  .. image:: /auto_examples/jops/images/thumb/sphx_glr_plot_essence_psplines_thumb.png
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_test_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_jops_plot_essence_psplines.py`
+  :ref:`sphx_glr_auto_examples_plot_test.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Show the essence of P-splines</div>
+      <div class="sphx-glr-thumbnail-title">Test</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 
@@ -57,10 +45,8 @@ Examples from JOPS.
 
 .. toctree::
    :hidden:
-   :includehidden:
 
-
-   /auto_examples/jops/index.rst
+   /auto_examples/plot_test
 
 
 .. only:: html

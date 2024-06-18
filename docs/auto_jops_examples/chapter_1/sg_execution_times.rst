@@ -1,12 +1,12 @@
 
 :orphan:
 
-.. _sphx_glr_sg_execution_times:
+.. _sphx_glr_auto_jops_examples_chapter_1_sg_execution_times:
 
 
 Computation times
 =================
-**00:00.327** total execution time for 2 files **from all galleries**:
+**00:00.325** total execution time for 1 file **from auto_jops_examples/chapter_1**:
 
 .. container::
 
@@ -32,9 +32,6 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py` (``../jops_examples/chapter_1/plot_essence_psplines.py``)
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py` (``plot_essence_psplines.py``)
      - 00:00.325
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_plot_test.py` (``../examples/plot_test.py``)
-     - 00:00.002
      - 0.0

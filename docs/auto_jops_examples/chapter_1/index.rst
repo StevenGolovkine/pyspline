@@ -1,10 +1,11 @@
 
 
-Examples using ``pyspline.psplines.PSplines.fit``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _sphx_glr_auto_jops_examples_chapter_1:
 
+.. _general_examples:
 
-.. start-sphx-glr-thumbnails
+Chapter 1: Introduction
+-----------------------
 
 
 .. raw:: html
@@ -30,13 +31,15 @@ Examples using ``pyspline.psplines.PSplines.fit``
     </div>
 
 
-.. only:: not html
-
- * :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py`
-
 .. thumbnail-parent-div-close
 
 .. raw:: html
 
     </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_jops_examples/chapter_1/plot_essence_psplines
 

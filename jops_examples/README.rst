@@ -1,7 +1,7 @@
 .. _general_examples:
 
-Examples
-========
+JOPS
+====
 
 .. toctree::
 	:includehidden:

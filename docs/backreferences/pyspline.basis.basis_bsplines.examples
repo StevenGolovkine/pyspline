@@ -1,7 +1,7 @@
 
 
-Examples using ``pyspline.psplines.PSplines.fit``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Examples using ``pyspline.basis.basis_bsplines``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 .. start-sphx-glr-thumbnails
