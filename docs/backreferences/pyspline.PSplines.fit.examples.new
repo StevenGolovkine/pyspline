@@ -1,12 +1,10 @@
 
 
-.. _sphx_glr_auto_jops_examples_chapter_1:
+Examples using ``pyspline.PSplines.fit``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. _general_examples:
 
-Chapter 1: Introduction
------------------------
-
+.. start-sphx-glr-thumbnails
 
 
 .. raw:: html
@@ -32,15 +30,6 @@ Chapter 1: Introduction
     </div>
 
 
-.. thumbnail-parent-div-close
+.. only:: not html
 
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /auto_jops_examples/chapter_1/plot_ps-show
-
+ * :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_ps-show.py`

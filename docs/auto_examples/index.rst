@@ -19,34 +19,11 @@ Examples
 
 .. thumbnail-parent-div-open
 
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Test">
-
-.. only:: html
-
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_test_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_plot_test.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Test</div>
-    </div>
-
-
 .. thumbnail-parent-div-close
 
 .. raw:: html
 
     </div>
-
-
-.. toctree::
-   :hidden:
-
-   /auto_examples/plot_test
 
 
 .. only:: html

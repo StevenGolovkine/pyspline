@@ -30,6 +30,7 @@ Chapter 1: Introduction
 -----------------------
 
 
+
 .. raw:: html
 
     <div class="sphx-glr-thumbnails">
@@ -42,14 +43,66 @@ Chapter 1: Introduction
 
 .. only:: html
 
-  .. image:: /auto_jops_examples/chapter_1/images/thumb/sphx_glr_plot_essence_psplines_thumb.png
+  .. image:: /auto_jops_examples/chapter_1/images/thumb/sphx_glr_plot_ps-show_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py`
+  :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_ps-show.py`
 
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Show the essence of P-splines</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+Chapter 2: Bases, penalties and likelihoods
+-------------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="New York air quality data polynomial fits (air quality data)">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_air-wind_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">New York air quality data polynomial fits (air quality data)</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Polynomial fits with differing support (Motorcycle data)">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_motpol1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Polynomial fits with differing support (Motorcycle data)</div>
     </div>
 
 
@@ -66,6 +119,7 @@ Chapter 1: Introduction
 
 
    /auto_jops_examples/chapter_1/index.rst
+   /auto_jops_examples/chapter_2/index.rst
 
 
 .. only:: html

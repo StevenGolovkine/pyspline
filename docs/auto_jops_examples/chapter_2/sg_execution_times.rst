@@ -1,12 +1,12 @@
 
 :orphan:
 
-.. _sphx_glr_sg_execution_times:
+.. _sphx_glr_auto_jops_examples_chapter_2_sg_execution_times:
 
 
 Computation times
 =================
-**00:00.656** total execution time for 3 files **from all galleries**:
+**00:00.656** total execution time for 2 files **from auto_jops_examples/chapter_2**:
 
 .. container::
 
@@ -32,12 +32,9 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``../jops_examples/chapter_2/plot_motpol1.py``)
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``plot_motpol1.py``)
      - 00:00.656
      - 0.0
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_ps-show.py` (``../jops_examples/chapter_1/plot_ps-show.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``../jops_examples/chapter_2/plot_air-wind.py``)
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``plot_air-wind.py``)
      - 00:00.000
      - 0.0
