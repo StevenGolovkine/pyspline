@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.325** total execution time for 1 file **from auto_jops_examples/chapter_1**:
+**00:00.330** total execution time for 1 file **from auto_jops_examples/chapter_1**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py` (``plot_essence_psplines.py``)
-     - 00:00.325
+     - 00:00.330
      - 0.0

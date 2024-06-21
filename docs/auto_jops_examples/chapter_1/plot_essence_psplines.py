@@ -40,7 +40,7 @@ xa = np.arange(1, ndx + 1) * dk - (deg + 1) * dk / 2
 
 
 # Estimate the coefficients and compute the fit on the grid
-ps = PSplines(penalty=0.1, n_segments=(ndx - deg, ), degree=(deg, ))
+ps = PSplines(penalty=0.1, n_segments=(ndx - deg,), degree=(deg,))
 ps.fit(X=x.reshape(-1, 1), y=y)
 z = ps.predict(X=xg.reshape(-1, 1))
 
@@ -62,5 +62,5 @@ for idx in np.arange(ndx):
     plt.scatter(xa[idx], ps.beta_hat_[idx], color=c, zorder=6)
     plt.plot(xg, Bsc[idx], color=c, zorder=3)
 plt.hlines(0, xmin=-0.1, xmax=1.1, color="#000000", linewidth=0.5)
-plt.grid(linestyle="-", color='#EEEEEE', zorder=0)
+plt.grid(linestyle="-", color="#EEEEEE", zorder=0)
 plt.show()
