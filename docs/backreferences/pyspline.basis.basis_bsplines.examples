@@ -15,24 +15,24 @@ Examples using ``pyspline.basis.basis_bsplines``
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Show the essence of P-splines">
+    <div class="sphx-glr-thumbcontainer" tooltip="B-splines in perspective">
 
 .. only:: html
 
-  .. image:: /auto_jops_examples/chapter_1/images/thumb/sphx_glr_plot_essence_psplines_thumb.png
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_persp_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py`
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Show the essence of P-splines</div>
+      <div class="sphx-glr-thumbnail-title">B-splines in perspective</div>
     </div>
 
 
 .. only:: not html
 
- * :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_essence_psplines.py`
+ * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py`
 
 .. thumbnail-parent-div-close
 
