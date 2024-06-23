@@ -91,6 +91,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Illustration of linear and quadratic B-spline bases">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_lin-quad_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_lin-quad.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Illustration of linear and quadratic B-spline bases</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Polynomial fits with differing support (Motorcycle data)">
 
 .. only:: html

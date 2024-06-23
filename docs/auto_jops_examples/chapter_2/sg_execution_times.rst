@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.328** total execution time for 3 files **from auto_jops_examples/chapter_2**:
+**00:00.250** total execution time for 4 files **from auto_jops_examples/chapter_2**:
 
 .. container::
 
@@ -32,12 +32,15 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py` (``plot_persp.py``)
-     - 00:00.328
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_lin-quad.py` (``plot_lin-quad.py``)
+     - 00:00.250
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``plot_air-wind.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``plot_motpol1.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py` (``plot_persp.py``)
      - 00:00.000
      - 0.0
