@@ -42,9 +42,12 @@ new_accel_subset = lm.predict(new_times_subset.reshape(-1, 1))
 
 # Build the graph
 plt.figure(figsize=(6, 4), dpi=300)
-plt.scatter(times, accel, color="#000000", s=2)
-plt.plot(new_times, new_accel, color="b")
-plt.plot(new_times_subset, new_accel_subset, color="r", linestyle="dashed")
+plt.scatter(times, accel, color="#000000", s=2, zorder=4)
+plt.plot(new_times, new_accel, color="b", zorder=5)
+plt.plot(
+    new_times_subset, new_accel_subset, color="r", linestyle="dashed", zorder=5
+)
+plt.axhline(y=0, color="k", linewidth=0.2, zorder=3)
 
 plt.title("Polynomial fits to motor cycle helmet data")
 plt.xlabel("Times (ms)")

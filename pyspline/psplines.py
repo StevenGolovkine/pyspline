@@ -116,31 +116,38 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 sample_weights, X, dtype=X.dtype
             )
 
-        # Modify y in order to have the right shape to fit in the array algo.
-        X, y, sample_weights = format_X_y(X, y, sample_weights)
-
-        # Build the B-splines basis
-        basis = [
-            basis_bsplines(
-                argvals=argvals, n_functions=n_segments + degree, degree=degree
-            )
-            for argvals, n_segments, degree in zip(
-                X,
-                self.n_segments,
-                self.degree,
-            )
-        ]
-
         if dimension == 1:
-            res = fit_one_dimensional(
+            domains = [(np.min(X), np.max(X))]
+            basis = basis_bsplines(
+                argvals=X.squeeze(),
+                n_functions=self.n_segments[0] + self.degree[0],
+                degree=self.degree[0],
+            )
+            results = fit_one_dimensional(
                 data=y,
-                basis=basis[0],
+                basis=basis,
                 sample_weights=sample_weights,
                 penalty=self.penalty,
                 order_penalty=self.order_penalty,
             )
         else:
-            res = fit_n_dimensional(
+            # Modify y in order to have the right shape to fit in the array algo
+            X, y, sample_weights = format_X_y(X, y, sample_weights)
+            domains = [(np.min(xx), np.max(xx)) for xx in X]
+
+            basis = [
+                basis_bsplines(
+                    argvals=argvals,
+                    n_functions=n_segments + degree,
+                    degree=degree,
+                )
+                for argvals, n_segments, degree in zip(
+                    X,
+                    self.n_segments,
+                    self.degree,
+                )
+            ]
+            results = fit_n_dimensional(
                 data=y,
                 basis_list=basis,
                 sample_weights=sample_weights,
@@ -152,10 +159,10 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.is_fitted_ = True
         self.dimension_ = dimension
         self.basis_ = basis
-        self.domains_ = [(np.min(xx), np.max(xx)) for xx in X]
-        self.y_hat_ = res["y_hat"]
-        self.beta_hat_ = res["beta_hat"]
-        self.diagnostics_ = {"hat_matrix": res["hat_matrix"]}
+        self.domains_ = domains
+        self.y_hat_ = results["y_hat"]
+        self.beta_hat_ = results["beta_hat"]
+        self.diagnostics_ = {"hat_matrix": results["hat_matrix"]}
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:

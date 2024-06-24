@@ -18,7 +18,7 @@ def format_X_y(
 ) -> tuple[
     list[npt.NDArray[np.float_]], npt.NDArray[np.float_], npt.NDArray[np.float_]
 ]:
-    """Input formatter for multidimentsional estimator.
+    """Input formatter for multidimensional estimator.
 
     Parameters
     ----------

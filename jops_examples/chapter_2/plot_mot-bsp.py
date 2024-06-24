@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
-Polynomial fits with differing support (Motorcycle data)
+B-spline fits having differing support (Motorcycle data)
 ========================================================
 """
 
@@ -9,9 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from sklearn.linear_model import LinearRegression
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import PolynomialFeatures
+from pyspline.psplines import PSplines
+
 
 # Get the data
 data = pd.read_csv("../data/mcycle.csv").dropna()
@@ -24,20 +23,20 @@ def make_grid(x, n=100):
 
 
 # Fit based on all data
-new_times = make_grid(times)
-lm = make_pipeline(PolynomialFeatures(9), LinearRegression())
-lm.fit(times.reshape(-1, 1), accel)
-new_accel = lm.predict(new_times.reshape(-1, 1))
+new_times = make_grid(times, 1000)
+ps = PSplines(n_segments=(5,), degree=(3,), penalty=(0,))
+ps.fit(times.reshape(-1, 1), accel)
+new_accel = ps.predict(new_times.reshape(-1, 1))
 
 
 # Fit based on data where time is greater than 5ms
 mask = times > 5
-times_subset = times[mask]
-accel_subset = accel[mask]
-new_times_subset = make_grid(times_subset)
-lm = make_pipeline(PolynomialFeatures(9), LinearRegression())
-lm.fit(times_subset.reshape(-1, 1), accel_subset)
-new_accel_subset = lm.predict(new_times_subset.reshape(-1, 1))
+sample_weights = np.zeros_like(accel)
+sample_weights[mask] = 1
+new_times_subset = new_times[new_times > 5]
+ps_subset = PSplines(n_segments=(5,), degree=(3,), penalty=(0,))
+ps_subset.fit(times.reshape(-1, 1), accel, sample_weights=sample_weights)
+new_accel_subset = ps_subset.predict(new_times_subset.reshape(-1, 1))
 
 
 # Build the graph
@@ -49,7 +48,7 @@ plt.plot(
 )
 plt.axhline(y=0, color="k", linewidth=0.2, zorder=3)
 
-plt.title("Polynomial fits to motor cycle helmet data")
+plt.title("Motor cycle helmet data")
 plt.xlabel("Times (ms)")
 plt.ylabel("Acceleration (g)")
 plt.grid(linestyle="-", color="#EEEEEE", zorder=0)

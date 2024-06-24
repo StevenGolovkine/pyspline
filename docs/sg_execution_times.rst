@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.250** total execution time for 5 files **from all galleries**:
+**00:01.340** total execution time for 6 files **from all galleries**:
 
 .. container::
 
@@ -32,8 +32,11 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_lin-quad.py` (``../jops_examples/chapter_2/plot_lin-quad.py``)
-     - 00:00.250
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_mot-bsp.py` (``../jops_examples/chapter_2/plot_mot-bsp.py``)
+     - 00:00.821
+     - 0.0
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``../jops_examples/chapter_2/plot_motpol1.py``)
+     - 00:00.519
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_ps-show.py` (``../jops_examples/chapter_1/plot_ps-show.py``)
      - 00:00.000
@@ -41,7 +44,7 @@ Computation times
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``../jops_examples/chapter_2/plot_air-wind.py``)
      - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``../jops_examples/chapter_2/plot_motpol1.py``)
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_lin-quad.py` (``../jops_examples/chapter_2/plot_lin-quad.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py` (``../jops_examples/chapter_2/plot_persp.py``)
