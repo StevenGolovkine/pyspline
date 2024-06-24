@@ -85,6 +85,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         X: npt.NDArray[np.float_],
         y: npt.NDArray[np.float_],
         sample_weights: npt.NDArray[np.float_] | None = None,
+        domains: list[tuple[np.float_]] | tuple[np.float_] | None = None,
     ) -> PSplines:
         """Fit a P-splines model to the given data.
 
@@ -101,6 +102,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             An array of shape `(n_obs,)` containing the weights for each
             observation. If not provided, all observations are assumed to have
             equal weight.
+        domains: list[tuple[np.float_]] | tuple[np.float_] | None, default=None
+            The domains of the B-splines basis.
 
         Returns
         -------
@@ -117,11 +120,14 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
 
         if dimension == 1:
-            domains = [(np.min(X), np.max(X))]
+            if domains is None:
+                domains = (np.min(X), np.max(X))
             basis = basis_bsplines(
                 argvals=X.squeeze(),
                 n_functions=self.n_segments[0] + self.degree[0],
                 degree=self.degree[0],
+                domain_min=domains[0],
+                domain_max=domains[1],
             )
             results = fit_one_dimensional(
                 data=y,
@@ -133,18 +139,19 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         else:
             # Modify y in order to have the right shape to fit in the array algo
             X, y, sample_weights = format_X_y(X, y, sample_weights)
-            domains = [(np.min(xx), np.max(xx)) for xx in X]
+            if domains is None:
+                domains = [(np.min(xx), np.max(xx)) for xx in X]
 
             basis = [
                 basis_bsplines(
                     argvals=argvals,
                     n_functions=n_segments + degree,
                     degree=degree,
+                    domain_min=domain[0],
+                    domain_max=domain[1],
                 )
-                for argvals, n_segments, degree in zip(
-                    X,
-                    self.n_segments,
-                    self.degree,
+                for argvals, n_segments, degree, domain in zip(
+                    X, self.n_segments, self.degree, domains
                 )
             ]
             results = fit_n_dimensional(
@@ -159,7 +166,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.is_fitted_ = True
         self.dimension_ = dimension
         self.basis_ = basis
-        self.domains_ = domains
+        self.domains_ = domains if isinstance(domains, list) else [domains]
         self.y_hat_ = results["y_hat"]
         self.beta_hat_ = results["beta_hat"]
         self.diagnostics_ = {"hat_matrix": results["hat_matrix"]}

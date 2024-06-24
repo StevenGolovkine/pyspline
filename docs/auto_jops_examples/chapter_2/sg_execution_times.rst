@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.340** total execution time for 5 files **from auto_jops_examples/chapter_2**:
+**00:00.482** total execution time for 6 files **from auto_jops_examples/chapter_2**:
 
 .. container::
 
@@ -32,16 +32,19 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_mot-bsp.py` (``plot_mot-bsp.py``)
-     - 00:00.821
-     - 0.0
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``plot_motpol1.py``)
-     - 00:00.519
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_mot-bsize.py` (``plot_mot-bsize.py``)
+     - 00:00.482
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``plot_air-wind.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_lin-quad.py` (``plot_lin-quad.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_mot-bsp.py` (``plot_mot-bsp.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_motpol1.py` (``plot_motpol1.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py` (``plot_persp.py``)
