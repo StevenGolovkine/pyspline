@@ -15,24 +15,24 @@ Examples using ``pyspline.psplines.PSplines.predict``
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Compare a small and large number of B-splines (Motorcycle data)">
+    <div class="sphx-glr-thumbcontainer" tooltip="Illustration B-splines differing number of segments (simulated data)">
 
 .. only:: html
 
-  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_mot-bsize_thumb.png
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_bsize_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_mot-bsize.py`
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bsize.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Compare a small and large number of B-splines (Motorcycle data)</div>
+      <div class="sphx-glr-thumbnail-title">Illustration B-splines differing number of segments (simulated data)</div>
     </div>
 
 
 .. only:: not html
 
- * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_mot-bsize.py`
+ * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bsize.py`
 
 .. thumbnail-parent-div-close
 

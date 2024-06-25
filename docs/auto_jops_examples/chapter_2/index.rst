@@ -117,6 +117,23 @@ Chapter 2: Bases, penalties and likelihoods
     </div>
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Illustration B-splines differing number of segments (simulated data)">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_bsize_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bsize.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Illustration B-splines differing number of segments (simulated data)</div>
+    </div>
+
+
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -133,4 +150,5 @@ Chapter 2: Bases, penalties and likelihoods
    /auto_jops_examples/chapter_2/plot_mot-bsp
    /auto_jops_examples/chapter_2/plot_motpol1
    /auto_jops_examples/chapter_2/plot_persp
+   /auto_jops_examples/chapter_2/plot_bsize
 
