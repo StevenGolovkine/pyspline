@@ -68,6 +68,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="B-spline fits with same basis having varying roughness">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_brough2_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_brough2.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">B-spline fits with same basis having varying roughness</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="B-spline fits having differing support (Motorcycle data)">
 
 .. only:: html
@@ -147,6 +164,7 @@ Chapter 2: Bases, penalties and likelihoods
    /auto_jops_examples/chapter_2/plot_air-wind
    /auto_jops_examples/chapter_2/plot_lin-quad
    /auto_jops_examples/chapter_2/plot_mot-bsize
+   /auto_jops_examples/chapter_2/plot_brough2
    /auto_jops_examples/chapter_2/plot_mot-bsp
    /auto_jops_examples/chapter_2/plot_motpol1
    /auto_jops_examples/chapter_2/plot_persp
