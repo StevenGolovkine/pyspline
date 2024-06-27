@@ -172,7 +172,7 @@ def fit_one_dimensional(
     n_basis, n_obs = basis.shape
 
     # Construct the penalty.
-    pen_mat = np.diff(np.eye(n_basis), n=order_penalty, axis=0)
+    diff_mat = np.diff(np.eye(n_basis), n=order_penalty, axis=0)
 
     # Build the different part of the model.
     if sample_weights is None:
@@ -180,7 +180,7 @@ def fit_one_dimensional(
     weight_mat = np.diag(sample_weights)
 
     bwb_mat = basis @ weight_mat @ basis.T
-    pen_mat = penalty * pen_mat.T @ pen_mat
+    pen_mat = penalty * diff_mat.T @ diff_mat
     bwy_mat = basis @ weight_mat @ data
 
     # Fit the model
@@ -190,8 +190,16 @@ def fit_one_dimensional(
 
     # Compute the hat matrix
     hat_matrix = np.diag(basis.T @ inv_mat @ basis @ weight_mat)
-
-    return {"y_hat": y_hat, "beta_hat": beta_hat, "hat_matrix": hat_matrix}
+    # Compute the roughness
+    roughness = beta_hat @ diff_mat.T @ diff_mat @ beta_hat
+    roughness = np.sqrt(roughness/ (n_basis - order_penalty))
+    
+    return {
+        "y_hat": y_hat,
+        "beta_hat": beta_hat,
+        "hat_matrix": hat_matrix,
+        "roughness": roughness,
+    }
 
 
 def fit_n_dimensional(
