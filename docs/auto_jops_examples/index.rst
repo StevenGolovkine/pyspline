@@ -142,6 +142,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="First order difference penalty in action with various tuning">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_d1pen_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_d1pen.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">First order difference penalty in action with various tuning</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="B-spline fits having differing support (Motorcycle data)">
 
 .. only:: html

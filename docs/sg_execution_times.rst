@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.318** total execution time for 9 files **from all galleries**:
+**00:00.378** total execution time for 10 files **from all galleries**:
 
 .. container::
 
@@ -32,13 +32,16 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_brough2.py` (``../jops_examples/chapter_2/plot_brough2.py``)
-     - 00:00.318
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_d1pen.py` (``../jops_examples/chapter_2/plot_d1pen.py``)
+     - 00:00.378
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_1_plot_ps-show.py` (``../jops_examples/chapter_1/plot_ps-show.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``../jops_examples/chapter_2/plot_air-wind.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_brough2.py` (``../jops_examples/chapter_2/plot_brough2.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bsize.py` (``../jops_examples/chapter_2/plot_bsize.py``)

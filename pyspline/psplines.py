@@ -167,9 +167,13 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.dimension_ = dimension
         self.basis_ = basis
         self.domains_ = domains if isinstance(domains, list) else [domains]
-        self.y_hat_ = results["y_hat"]
-        self.beta_hat_ = results["beta_hat"]
-        self.diagnostics_ = {"hat_matrix": results["hat_matrix"]}
+        self.y_hat_ = results.get("y_hat", None)
+        self.beta_hat_ = results.get("beta_hat", None)
+        self.diagnostics_ = {
+            "hat_matrix": results.get("hat_matrix", None),
+            "roughness": results.get("roughness", None),
+            "residuals_std": results.get("residuals_std", None),
+        }
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:

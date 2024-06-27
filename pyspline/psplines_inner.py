@@ -192,13 +192,15 @@ def fit_one_dimensional(
     hat_matrix = np.diag(basis.T @ inv_mat @ basis @ weight_mat)
     # Compute the roughness
     roughness = beta_hat @ diff_mat.T @ diff_mat @ beta_hat
-    roughness = np.sqrt(roughness/ (n_basis - order_penalty))
-    
+    roughness = np.sqrt(roughness / (n_basis - order_penalty))
+    # Compute standard deviation of the residuals
+    residuals_std = np.sqrt(np.mean((data - y_hat) ** 2))
     return {
         "y_hat": y_hat,
         "beta_hat": beta_hat,
         "hat_matrix": hat_matrix,
         "roughness": roughness,
+        "residuals_std": residuals_std,
     }
 
 
