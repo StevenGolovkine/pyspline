@@ -227,6 +227,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Illustration of interpolation and extrapolation by penalty order">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_extrapol1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_extrapol1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Illustration of interpolation and extrapolation by penalty order</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Illustration B-splines differing number of segments (simulated data)">
 
 .. only:: html
