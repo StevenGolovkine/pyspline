@@ -1,4 +1,4 @@
-.. _general_examples:
+.. _JOPS:
 
 JOPS
 ====
@@ -7,4 +7,3 @@ JOPS
 	:includehidden:
 	:maxdepth: 2
 	:titlesonly:
-

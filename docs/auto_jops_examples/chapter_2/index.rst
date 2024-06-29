@@ -2,7 +2,7 @@
 
 .. _sphx_glr_auto_jops_examples_chapter_2:
 
-.. _general_examples:
+.. _chapter_2:
 
 Chapter 2: Bases, penalties and likelihoods
 -------------------------------------------

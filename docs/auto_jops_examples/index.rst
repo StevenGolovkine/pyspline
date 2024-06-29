@@ -1,6 +1,6 @@
 :orphan:
 
-.. _general_examples:
+.. _JOPS:
 
 JOPS
 ====
@@ -12,12 +12,46 @@ JOPS
 
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+Appendix C: Computational details
+---------------------------------
+
+
 
 .. raw:: html
 
     <div class="sphx-glr-thumbnails">
 
 .. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Construction of linear B-splines from truncated power basis">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/appendix_c/images/thumb/sphx_glr_plot_trunc1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_appendix_c_plot_trunc1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Construction of linear B-splines from truncated power basis</div>
+    </div>
+
 
 .. thumbnail-parent-div-close
 
@@ -271,6 +305,7 @@ Chapter 2: Bases, penalties and likelihoods
    :includehidden:
 
 
+   /auto_jops_examples/appendix_c/index.rst
    /auto_jops_examples/chapter_1/index.rst
    /auto_jops_examples/chapter_2/index.rst
 

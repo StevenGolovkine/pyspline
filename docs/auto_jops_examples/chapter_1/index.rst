@@ -2,7 +2,7 @@
 
 .. _sphx_glr_auto_jops_examples_chapter_1:
 
-.. _general_examples:
+.. _chapter_1:
 
 Chapter 1: Introduction
 -----------------------
