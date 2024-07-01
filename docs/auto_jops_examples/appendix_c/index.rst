@@ -32,6 +32,23 @@ Appendix C: Computational details
     </div>
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Construction of quadratic B-splines from truncated power basis">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/appendix_c/images/thumb/sphx_glr_plot_trunc2_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_appendix_c_plot_trunc2.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Construction of quadratic B-splines from truncated power basis</div>
+    </div>
+
+
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -43,4 +60,5 @@ Appendix C: Computational details
    :hidden:
 
    /auto_jops_examples/appendix_c/plot_trunc1
+   /auto_jops_examples/appendix_c/plot_trunc2
 

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.260** total execution time for 1 file **from auto_jops_examples/appendix_c**:
+**00:00.239** total execution time for 2 files **from auto_jops_examples/appendix_c**:
 
 .. container::
 
@@ -32,6 +32,9 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
+   * - :ref:`sphx_glr_auto_jops_examples_appendix_c_plot_trunc2.py` (``plot_trunc2.py``)
+     - 00:00.239
+     - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_appendix_c_plot_trunc1.py` (``plot_trunc1.py``)
-     - 00:00.260
+     - 00:00.000
      - 0.0
