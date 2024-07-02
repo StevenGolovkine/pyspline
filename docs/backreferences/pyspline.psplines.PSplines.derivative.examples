@@ -1,0 +1,42 @@
+
+
+Examples using ``pyspline.psplines.PSplines.derivative``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Smoothing of BMI and its derivative against age (boys7482 data)">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_slope-height_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Smoothing of BMI and its derivative against age (boys7482 data)</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py`
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+

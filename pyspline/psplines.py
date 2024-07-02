@@ -245,7 +245,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         )
         beta_hat = (
             np.diff(self.beta_hat_, n=order_derivative)
-            / ((self.domains_[0][1] - self.domains_[0][0]) / self.n_segments)
+            / ((self.domains_[0][1] - self.domains_[0][0]) / self.n_segments[0])
             ** order_derivative
         )
         return basis.T @ beta_hat

@@ -136,6 +136,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Smoothing of BMI and its derivative against age (boys7482 data)">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_slope-height_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Smoothing of BMI and its derivative against age (boys7482 data)</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Polynomial fits with differing support (Motorcycle data)">
 
 .. only:: html
@@ -219,6 +236,7 @@ Chapter 2: Bases, penalties and likelihoods
    /auto_jops_examples/chapter_2/plot_d2pen
    /auto_jops_examples/chapter_2/plot_d1pen
    /auto_jops_examples/chapter_2/plot_mot-bsp
+   /auto_jops_examples/chapter_2/plot_slope-height
    /auto_jops_examples/chapter_2/plot_motpol1
    /auto_jops_examples/chapter_2/plot_persp
    /auto_jops_examples/chapter_2/plot_extrapol1
