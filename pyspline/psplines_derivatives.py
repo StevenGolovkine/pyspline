@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*-coding:utf8 -*
 """
-P-Splines
----------
+P-Splines derivatives
+---------------------
 
 """
 
@@ -23,15 +23,16 @@ from sklearn.utils.validation import (
 
 from .arrays import rotated_h_transform
 from .basis import basis_bsplines
-from .formatter import format_X_y
-from .psplines_inner import fit_one_dimensional, fit_n_dimensional
+from .psplines import PSplines
 
 
-class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
-    """P-Splines Smoothing.
+class PSplinesDerivative(BaseEstimator, RegressorMixin):  # type: ignore
+    """P-Splines Derivative Smoothing.
 
     Parameters
     ----------
+    order_derivative: int, default=1
+        The order of the derivatives to estimate.
     penalty: Tuple[float], default=(1.0,)
         A tuple of penalty parameters for each dimension.
     n_segments: Tuple[int], default=(10,)
@@ -65,6 +66,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
     def __init__(
         self,
+        order_derivative: int = 1,
         penalty: Tuple[float] = (1.0,),
         *,
         n_segments: Tuple[int] = (10,),
@@ -72,6 +74,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         order_penalty: int = 2,
     ):
         """Initializa PSplines object."""
+        self.order_derivative = order_derivative
         self.penalty = penalty
         self.n_segments = n_segments
         self.degree = degree
@@ -83,7 +86,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         y: npt.NDArray[np.float_],
         sample_weights: npt.NDArray[np.float_] | None = None,
         domains: list[tuple[np.float_]] | tuple[np.float_] | None = None,
-    ) -> PSplines:
+    ) -> PSplinesDerivative:
         """Fit a P-splines model to the given data.
 
         The method fits a P-splines model to the given data using a B-splines
@@ -104,73 +107,60 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         Returns
         -------
-        self: PSplines
+        self: PSplinesDerivative
             Returns self.
 
         """
         X, y = check_X_y(X, y)
         dimension = X.shape[1]
 
+        if dimension > 1:
+            raise NotImplementedError("Not implemented for dimension > 1.")
+
         if sample_weights is not None:
             sample_weights = _check_sample_weight(
                 sample_weights, X, dtype=X.dtype
             )
 
-        if dimension == 1:
-            if domains is None:
-                domains = (np.min(X), np.max(X))
-            basis = basis_bsplines(
-                argvals=X.squeeze(),
-                n_functions=self.n_segments[0] + self.degree[0],
-                degree=self.degree[0],
-                domain_min=domains[0],
-                domain_max=domains[1],
-            )
-            results = fit_one_dimensional(
-                data=y,
-                basis=basis,
-                sample_weights=sample_weights,
-                penalty=self.penalty,
-                order_penalty=self.order_penalty,
-            )
-        else:
-            # Modify y in order to have the right shape to fit in the array algo
-            X, y, sample_weights = format_X_y(X, y, sample_weights)
-            if domains is None:
-                domains = [(np.min(xx), np.max(xx)) for xx in X]
+        # Estimate the model
+        if domains is None:
+            domains = (np.min(X), np.max(X))
+        ps = PSplines(
+            penalty=self.penalty,
+            n_segments=self.n_segments,
+            degree=self.degree,
+            order_penalty=self.order_penalty,
+        )
+        ps.fit(X=X, y=y, sample_weights=sample_weights, domains=domains)
 
-            basis = [
-                basis_bsplines(
-                    argvals=argvals,
-                    n_functions=n_segments + degree,
-                    degree=degree,
-                    domain_min=domain[0],
-                    domain_max=domain[1],
-                )
-                for argvals, n_segments, degree, domain in zip(
-                    X, self.n_segments, self.degree, domains
-                )
-            ]
-            results = fit_n_dimensional(
-                data=y,
-                basis_list=basis,
-                sample_weights=sample_weights,
-                penalties=self.penalty,
-                order_penalty=self.order_penalty,
-            )
+        # Estimate the derivative
+        n_func = self.n_segments[0] + self.degree[0] - self.order_derivative
+        basis = basis_bsplines(
+            argvals=X.squeeze(),
+            n_functions=n_func,
+            degree=self.degree[0] - self.order_derivative,
+            domain_min=domains[0],
+            domain_max=domains[1],
+        )
+        beta_hat = (
+            np.diff(ps.beta_hat_, n=self.order_derivative)
+            / ((domains[1] - domains[0]) / self.n_segments)
+            ** self.order_derivative
+        )
+        y_hat = basis.T @ beta_hat
 
         # Export results
         self.is_fitted_ = True
         self.dimension_ = dimension
         self.basis_ = basis
         self.domains_ = domains if isinstance(domains, list) else [domains]
-        self.y_hat_ = results.get("y_hat", None)
-        self.beta_hat_ = results.get("beta_hat", None)
-        self.diagnostics_ = {
-            "hat_matrix": results.get("hat_matrix", None),
-            "roughness": results.get("roughness", None),
-            "residuals_std": results.get("residuals_std", None),
-        }
+        self.y_hat_ = y_hat
+        self.beta_hat_ = beta_hat
+        # self.diagnostics_ = {
+        #     "hat_matrix": results.get("hat_matrix", None),
+        #     "roughness": results.get("roughness", None),
+        #     "residuals_std": results.get("residuals_std", None),
+        # }
         return self
 
     def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
@@ -199,8 +189,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         basis = [
             basis_bsplines(
                 argvals=argvals,
-                n_functions=n_segments + degree,
-                degree=degree,
+                n_functions=n_segments + degree - self.order_derivative,
+                degree=degree - self.order_derivative,
                 domain_min=domain[0],
                 domain_max=domain[1],
             )
