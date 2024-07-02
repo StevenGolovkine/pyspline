@@ -71,7 +71,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         degree: Tuple[int] = (3,),
         order_penalty: int = 2,
     ):
-        """Initializa PSplines object."""
+        """Initialize PSplines object."""
         self.penalty = penalty
         self.n_segments = n_segments
         self.degree = degree
@@ -217,3 +217,35 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 y_pred = rotated_h_transform(basis[idx].T, y_pred)
 
         return y_pred
+
+    def derivative(self, X: npt.NDArray[np.float_], order_derivative: int = 1):
+        """Estimate the derivative of the data.
+
+        Parameters
+        ----------
+        X: npt.NDArray[np.float_]
+            An array containing the predictor variable values.
+        order_derivative: int, default=1
+            Order of the derivative to compute.
+
+        """
+        X = check_array(X, accept_sparse=True)
+        check_is_fitted(self, "is_fitted_")
+
+        if self.dimension_ > 1:
+            raise NotImplementedError("Not implemented for dimension > 1.")
+
+        n_functions = self.n_segments[0] + self.degree[0] - order_derivative
+        basis = basis_bsplines(
+            argvals=X.squeeze(),
+            n_functions=n_functions,
+            degree=self.degree[0] - order_derivative,
+            domain_min=self.domains_[0][0],
+            domain_max=self.domains_[0][1],
+        )
+        beta_hat = (
+            np.diff(self.beta_hat_, n=order_derivative)
+            / ((self.domains_[0][1] - self.domains_[0][0]) / self.n_segments)
+            ** order_derivative
+        )
+        return basis.T @ beta_hat
