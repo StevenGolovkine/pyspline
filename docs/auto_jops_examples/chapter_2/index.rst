@@ -187,6 +187,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Effective dimension with increased penalization">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_peffdim_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_peffdim.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Effective dimension with increased penalization</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Illustration of interpolation and extrapolation by penalty order">
 
 .. only:: html
@@ -239,6 +256,7 @@ Chapter 2: Bases, penalties and likelihoods
    /auto_jops_examples/chapter_2/plot_slope-height
    /auto_jops_examples/chapter_2/plot_motpol1
    /auto_jops_examples/chapter_2/plot_persp
+   /auto_jops_examples/chapter_2/plot_peffdim
    /auto_jops_examples/chapter_2/plot_extrapol1
    /auto_jops_examples/chapter_2/plot_bsize
 

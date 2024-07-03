@@ -15,24 +15,24 @@ Examples using ``pyspline.PSplines.fit``
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Smoothing of BMI and its derivative against age (boys7482 data)">
+    <div class="sphx-glr-thumbcontainer" tooltip="Effective dimension with increased penalization">
 
 .. only:: html
 
-  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_slope-height_thumb.png
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_peffdim_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py`
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_peffdim.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Smoothing of BMI and its derivative against age (boys7482 data)</div>
+      <div class="sphx-glr-thumbnail-title">Effective dimension with increased penalization</div>
     </div>
 
 
 .. only:: not html
 
- * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py`
+ * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_peffdim.py`
 
 .. thumbnail-parent-div-close
 
