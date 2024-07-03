@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.035** total execution time for 15 files **from all galleries**:
+**00:00.662** total execution time for 15 files **from all galleries**:
 
 .. container::
 
@@ -33,7 +33,7 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py` (``../jops_examples/chapter_2/plot_slope-height.py``)
-     - 00:01.035
+     - 00:00.662
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_appendix_c_plot_trunc1.py` (``../jops_examples/appendix_c/plot_trunc1.py``)
      - 00:00.000

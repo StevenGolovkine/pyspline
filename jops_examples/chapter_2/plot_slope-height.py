@@ -17,10 +17,10 @@ rng = np.random.default_rng(42)
 
 
 # Get the data
-data = pd.read_csv('../data/boys7482.csv')
-data = data.query('age < 20').dropna(subset=['age', 'hgt'])
-age = data['age'].to_numpy()
-height = data['hgt'].to_numpy()
+data = pd.read_csv("../data/boys7482.csv")
+data = data.query("age < 20").dropna(subset=["age", "hgt"])
+age = data["age"].to_numpy()
+height = data["hgt"].to_numpy()
 
 
 # Subset the data
@@ -30,7 +30,7 @@ height = height[mask]
 
 
 # Fit the model
-ps = PSplines(n_segments=(50,), degree=(3,), penalty=(100, ), order_penalty=2)
+ps = PSplines(n_segments=(50,), degree=(3,), penalty=(100,), order_penalty=2)
 ps.fit(age.reshape(-1, 1), height, domains=(0, 20))
 
 new_age = np.arange(0, 20, 0.1)
@@ -47,13 +47,13 @@ axs = fig.subplots(2, 1, sharex=True)
 
 axs[0].scatter(age, height, color="#AAAAAA", s=0.5, zorder=3)
 axs[0].plot(new_age, new_height, color="#0047AB", linewidth=1, zorder=4)
-axs[0].grid(linestyle="-", color='#EEEEEE', zorder=0)
+axs[0].grid(linestyle="-", color="#EEEEEE", zorder=0)
 axs[0].set_xlabel("Age")
 axs[0].set_ylabel("Height (cm)")
 axs[0].set_title("Heights of Dutch boys")
 
 axs[1].plot(new_age, height_deriv, color="#0047AB", linewidth=1, zorder=4)
-axs[1].grid(linestyle="-", color='#EEEEEE', zorder=0)
+axs[1].grid(linestyle="-", color="#EEEEEE", zorder=0)
 axs[1].set_xlabel("Age")
 axs[1].set_ylabel("Growth speed (cm/y)")
 axs[1].set_title("Growth speed of Dutch boys")

@@ -168,6 +168,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.beta_hat_ = results.get("beta_hat", None)
         self.diagnostics_ = {
             "hat_matrix": results.get("hat_matrix", None),
+            "eff_dimension": results.get("eff_dimension", None),
             "roughness": results.get("roughness", None),
             "residuals_std": results.get("residuals_std", None),
         }
