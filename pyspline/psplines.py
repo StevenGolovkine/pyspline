@@ -220,9 +220,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 y_pred = rotated_h_transform(basis[idx].T, y_pred)
         return y_pred
 
-    def errors(
-        self, X: npt.NDArray[np.float_]
-    ) -> npt.NDArray[np.float_]:
+    def errors(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
         """Estimate the standard errors of the fitted values.
 
         Parameters
@@ -257,8 +255,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
         ]
 
-        temp = np.diag(basis[0].T @ self.diagnostics_['inv_mat'] @ basis[0])
-        se_eta = np.sqrt(self.diagnostics_['residuals_std']**2 * temp)
+        temp = np.diag(basis[0].T @ self.diagnostics_["inv_mat"] @ basis[0])
+        se_eta = np.sqrt(self.diagnostics_["residuals_std"] ** 2 * temp)
         return se_eta
 
     def derivative(self, X: npt.NDArray[np.float_], order_derivative: int = 1):

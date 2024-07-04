@@ -142,6 +142,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="P-spline fit with twice se bands, optimal on CV (Motorcyle data)">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_se_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_se.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">P-spline fit with twice se bands, optimal on CV (Motorcyle data)</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Illustration of linear and quadratic B-spline bases">
 
 .. only:: html
