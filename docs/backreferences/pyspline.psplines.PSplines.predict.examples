@@ -15,24 +15,24 @@ Examples using ``pyspline.psplines.PSplines.predict``
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="P-spline fit with twice se bands, optimal on CV (Motorcyle data)">
+    <div class="sphx-glr-thumbcontainer" tooltip="View of B-spline coefficients">
 
 .. only:: html
 
-  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_se_thumb.png
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_bcoeff_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_se.py`
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">P-spline fit with twice se bands, optimal on CV (Motorcyle data)</div>
+      <div class="sphx-glr-thumbnail-title">View of B-spline coefficients</div>
     </div>
 
 
 .. only:: not html
 
- * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_se.py`
+ * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff.py`
 
 .. thumbnail-parent-div-close
 

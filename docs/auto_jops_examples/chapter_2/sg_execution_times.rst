@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.878** total execution time for 14 files **from auto_jops_examples/chapter_2**:
+**00:00.269** total execution time for 15 files **from auto_jops_examples/chapter_2**:
 
 .. container::
 
@@ -32,8 +32,8 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_se.py` (``plot_se.py``)
-     - 00:00.878
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff.py` (``plot_bcoeff.py``)
+     - 00:00.269
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_air-wind.py` (``plot_air-wind.py``)
      - 00:00.000
@@ -69,6 +69,9 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_persp.py` (``plot_persp.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_se.py` (``plot_se.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_slope-height.py` (``plot_slope-height.py``)
