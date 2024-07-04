@@ -171,6 +171,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             "eff_dimension": results.get("eff_dimension", None),
             "roughness": results.get("roughness", None),
             "residuals_std": results.get("residuals_std", None),
+            "se_eta": results.get("se_eta", None),
+            "inv_mat": results.get("inv_mat", None),
         }
         return self
 
@@ -216,8 +218,48 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             y_pred = rotated_h_transform(basis[0].T, self.beta_hat_)
             for idx in np.arange(1, len(basis)):
                 y_pred = rotated_h_transform(basis[idx].T, y_pred)
-
         return y_pred
+
+    def errors(
+        self, X: npt.NDArray[np.float_]
+    ) -> npt.NDArray[np.float_]:
+        """Estimate the standard errors of the fitted values.
+
+        Parameters
+        ----------
+        X: npt.NDArray[np.float_]
+            An array containing the predictor variable values.
+
+        Returns
+        -------
+        npt.NDArray[np.float_]
+            An array containing standard errors of the fitted values.
+
+        """
+        X = check_array(X, accept_sparse=True)
+        check_is_fitted(self, "is_fitted_")
+
+        if self.dimension_ > 1:
+            raise NotImplementedError("Not implemented for dimension > 1.")
+
+        # Build the B-splines basis
+        new_X = [np.unique(column) for column in X.T]
+        basis = [
+            basis_bsplines(
+                argvals=argvals,
+                n_functions=n_segments + degree,
+                degree=degree,
+                domain_min=domain[0],
+                domain_max=domain[1],
+            )
+            for argvals, n_segments, degree, domain in zip(
+                new_X, self.n_segments, self.degree, self.domains_
+            )
+        ]
+
+        temp = np.diag(basis[0].T @ self.diagnostics_['inv_mat'] @ basis[0])
+        se_eta = np.sqrt(self.diagnostics_['residuals_std']**2 * temp)
+        return se_eta
 
     def derivative(self, X: npt.NDArray[np.float_], order_derivative: int = 1):
         """Estimate the derivative of the data.

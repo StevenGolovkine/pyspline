@@ -198,6 +198,8 @@ def fit_one_dimensional(
     residuals_std = np.sqrt(
         np.sum((data - y_hat) ** 2) / (n_obs - eff_dimension)
     )
+    # Compute standard errors on the grid
+    se_eta = np.sqrt(residuals_std**2 * hat_matrix)
     return {
         "y_hat": y_hat,
         "beta_hat": beta_hat,
@@ -205,6 +207,8 @@ def fit_one_dimensional(
         "eff_dimension": eff_dimension,
         "roughness": roughness,
         "residuals_std": residuals_std,
+        "se_eta": se_eta,
+        "inv_mat": inv_mat,
     }
 
 
