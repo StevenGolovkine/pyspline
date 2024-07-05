@@ -255,6 +255,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="View of linear B-spline coefficients">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_bcoeff-lin_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff-lin.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">View of linear B-spline coefficients</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Illustration B-splines differing number of segments (simulated data)">
 
 .. only:: html
@@ -294,5 +311,6 @@ Chapter 2: Bases, penalties and likelihoods
    /auto_jops_examples/chapter_2/plot_peffdim
    /auto_jops_examples/chapter_2/plot_extrapol1
    /auto_jops_examples/chapter_2/plot_bcoeff
+   /auto_jops_examples/chapter_2/plot_bcoeff-lin
    /auto_jops_examples/chapter_2/plot_bsize
 

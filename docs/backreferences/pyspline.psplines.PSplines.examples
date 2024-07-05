@@ -15,24 +15,24 @@ Examples using ``pyspline.psplines.PSplines``
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="View of B-spline coefficients">
+    <div class="sphx-glr-thumbcontainer" tooltip="View of linear B-spline coefficients">
 
 .. only:: html
 
-  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_bcoeff_thumb.png
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_bcoeff-lin_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff.py`
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff-lin.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">View of B-spline coefficients</div>
+      <div class="sphx-glr-thumbnail-title">View of linear B-spline coefficients</div>
     </div>
 
 
 .. only:: not html
 
- * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff.py`
+ * :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_bcoeff-lin.py`
 
 .. thumbnail-parent-div-close
 
