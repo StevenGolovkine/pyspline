@@ -99,6 +99,22 @@ def test_predict_n_dimensional(data_2d):
     np.testing.assert_array_almost_equal(pred, expected_pred)
 
 
+def test_errors_one_dimensional(data):
+    ps = PSplines(n_segments=(5,))
+    ps.fit(data["x"].reshape(-1, 1), data["y"])
+    pred = ps.errors(np.array([2.5, 4.5]).reshape(-1, 1))
+
+    expected_pred = np.array([0, 0])
+    np.testing.assert_array_almost_equal(pred, expected_pred)
+
+
+def test_errors_n_dimensional(data_2d):
+    ps = PSplines(penalty=(1, 1), n_segments=(4, 4), degree=(1, 1))
+    ps.fit(data_2d["x"], data_2d["y"])
+    with pytest.raises(NotImplementedError):
+        ps.errors(X=data_2d["x"])
+
+
 def test_derivative_one_dimensional(data):
     ps = PSplines(n_segments=(5,))
     ps.fit(data["x"].reshape(-1, 1), data["y"])
