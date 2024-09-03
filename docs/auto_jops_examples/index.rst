@@ -125,6 +125,23 @@ Chapter 2: Bases, penalties and likelihoods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Equivalent kernels of Whittaker smoother with second order penalty">
+
+.. only:: html
+
+  .. image:: /auto_jops_examples/chapter_2/images/thumb/sphx_glr_plot_eff-kernels_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_jops_examples_chapter_2_plot_eff-kernels.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Equivalent kernels of Whittaker smoother with second order penalty</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="New York air quality data polynomial fits (air quality data)">
 
 .. only:: html
