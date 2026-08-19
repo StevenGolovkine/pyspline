@@ -22,7 +22,8 @@ def cv(
     domains: list[tuple[float,float]] | tuple[float,float] | None = None,
 
 ) -> npt.NDArray[np.float64]:
-    """leave-one-out standard error prediction
+    """
+    Leave-one-out standard error prediction.
 
     Parameters
     ----------
@@ -44,7 +45,8 @@ def cv(
     Returns
     -------
     npt.NDArray[np.float64]
-        An array containing leave-one-out standard error prediction
+        An array containing leave-one-out standard error prediction.
+
     """
     X, y = check_X_y(X, y)
     dimension = X.shape[1]
@@ -56,8 +58,8 @@ def cv(
             ps = PSplines(n_segments=n_segments, degree=degree, penalty=p,
                     order_penalty=order_penalty)
             ps.fit(X, y, domains=domains)
-            assert ps.y_hat_ is not None
-
+            if ps.y_hat_ is None:
+                raise ValueError("ps.y_hat_ cannot be None")
             if isinstance(ps.basis_, list):
                 raise ValueError("Expected 1D basis, got multi-dimensional")
 
@@ -73,7 +75,9 @@ def cv(
             ps = PSplines(n_segments=n_segments, degree=degree, penalty=p,
                 order_penalty=order_penalty)
             ps.fit(X, y, domains=domains)
-            assert ps.domains_ is not None
+            if ps.domains_ is None:
+                raise ValueError("ps.domains_ cannot be None")
+
             y_pred = np.array([ps.predict(X[i,:].reshape(1,-1))[0][0]
                                for i in range(len(X))])
             basis = [
@@ -110,13 +114,15 @@ def cv_derivative(
     domains: list[tuple[float,float]] | tuple[float,float] | None = None,
 
 ) -> npt.NDArray[np.float64]:
-    """leave-one-out standard error prediction
+    """
+    Leave-one-out standard error prediction.
 
     Parameters
     ----------
     X: npt.NDArray[np.float64], shape=(n_obs, n_dimension)
         An array containing the predictor variable values.
     deriv: npt.NDArray[np.float64], shape=(n_obs,)
+        An array containing the estimated derivatives of the fitted values
     params: list[tuple[np.float64]]
         The penalty parameters
     n_segments: Tuple[int], default=(10,)
@@ -131,7 +137,8 @@ def cv_derivative(
     Returns
     -------
     npt.NDArray[np.float64]
-        An array containing leave-one-out standard error prediction
+        An array containing leave-one-out standard error prediction.
+
     """
     X, deriv = check_X_y(X, deriv)
     dimension = X.shape[1]
@@ -140,7 +147,7 @@ def cv_derivative(
 
     if dimension == 1:
         if domains is None:
-                domains = (float(np.min(X)), float(np.max(X)))
+            domains = (float(np.min(X)), float(np.max(X)))
         elif not isinstance(domains, tuple):
             raise TypeError("For 1D, domains must be tuple[float, float]")
 
@@ -169,7 +176,7 @@ def cv_derivative(
                 ((deriv - deriv_pred) / (1- h_diag)) **2)/nb_obs)
     else:
         if domains is None:
-                domains = [(float(np.min(xx)), float(np.max(xx)))
+            domains = [(float(np.min(xx)), float(np.max(xx)))
                            for xx in X]
         if not isinstance(domains, list):
             raise TypeError("For multi-dim, domains must be " \
@@ -213,8 +220,8 @@ def gcv(
     order_penalty: int = 2,
     domains: list[tuple[float,float]] | tuple[float,float] | None = None,
     ) -> np.float64:
-
-    """Generalized cross-validation
+    """
+    Generalized cross-validation.
 
     Parameters
     ----------
@@ -236,9 +243,9 @@ def gcv(
     Returns
     -------
     np.float64
-        The GCV value
-    """
+        The GCV value.
 
+    """
     X, deriv = check_X_y(X, deriv)
     dimension = X.shape[1]
     nb_obs = len(deriv)
@@ -246,7 +253,7 @@ def gcv(
 
     if dimension == 1:
         if domains is None:
-                domains = (float(np.min(X)), float(np.max(X)))
+            domains = (float(np.min(X)), float(np.max(X)))
         elif not isinstance(domains, tuple):
             raise TypeError("For 1D, domains must be tuple[float, float]")
 
@@ -276,8 +283,8 @@ def gcv(
             raise TypeError("For multi-dim, domains must be " \
                     "list[tuple[float,float]]")
         if not isinstance(p, tuple):
-                    raise TypeError("For multi-dim, parameters must be " \
-                            "tuple")
+            raise TypeError("For multi-dim, parameters must be " \
+                    "tuple")
 
         basis = [
                 basis_bsplines(
@@ -317,11 +324,12 @@ def risk(
         degree: tuple[int] = (3,),
         order_penalty: int = 2,
         domains: list[tuple[float,float]] | tuple[float,float] | None = None,
-        order_derivative: int=1,
-        variance: int=1,
+        order_derivative: int = 1,
+        variance: int = 1,
         dim: tuple[int] = (0,)
 ) -> float:
-    """Risk estimation
+    """
+    Risk estimation.
 
     Parameters
     ----------
@@ -345,10 +353,12 @@ def risk(
         The noise variance, sigma^2
     dim: tuple[int], default(0,)
         The dimension along which to compute the derivative
+
     Returns
     -------
     float
-        A float containing the risk estimation
+        A float containing the risk estimation.
+
     """
     X, y = check_X_y(X, y)
     dimension = X.shape[1]
@@ -397,20 +407,20 @@ def risk(
             raise TypeError("For multi-dim, domains must be " \
                     "list[tuple[float,float]]")
         if not isinstance(p, tuple):
-                    raise TypeError("For multi-dim, p must be " \
-                            "tuple[float]")
+            raise TypeError("For multi-dim, p must be " \
+                    "tuple[float]")
         basis = [
             basis_bsplines(
                 argvals=argvals,
                 n_functions=n_segments + degree,
                 degree=degree,
                 domain_min=float(domain[0]),
-                domain_max=float(domain[1]),
-                ).T
-                for argvals, n_segments, degree, domain in zip(
+                domain_max=float(domain[1])
+            ).T
+            for argvals, n_segments, degree, domain in zip(
                     X.T, n_segments, degree, domains
-                )
-                ]
+            )
+        ]
 
         # Penalty matrix
         total_penalty = penalties(basis, order_penalty, p)
@@ -464,17 +474,19 @@ def risk(
 def kronecker_product(
     basis: list[npt.NDArray[np.float64]],
 )->npt.NDArray[np.float64]:
-    """Computes the Kronecker product
+    """
+    Computes the Kronecker product.
 
     Parameters
     ----------
     basis: list[npt.NDArray[np.float64]]
-        The P-splines basis
+        The P-splines basis.
 
     Returns
     -------
     npt.NDArray[np.float64]
-        An array containing the kronecker product
+        An array containing the kronecker product.
+
     """
     shape_b_kron = 1
     nb_obs = basis[0].shape[0]
@@ -491,10 +503,11 @@ def kronecker_product(
 
 def penalties(
     basis: list[npt.NDArray[np.float64]],
-    order_penalty: int=2,
+    order_penalty: int = 2,
     lambda_param: tuple[float,...] = (1,1)
 )->npt.NDArray[np.float64]:
-    """Computes the penaltes
+    """
+    Computes the penaltes.
 
     Parameters
     ----------
@@ -508,7 +521,8 @@ def penalties(
     Returns
     -------
     npt.NDArray[np.float64]
-        An array containing the penalties
+        An array containing the penalties.
+
     """
     pen_mat = []
     for i in range(len(basis)):

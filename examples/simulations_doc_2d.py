@@ -212,9 +212,9 @@ for idx_nb_obs, n in enumerate(nb_obs):
                 models[dim] = ps_deriv
 
             for border, derivs in (
-                (1, [deriv_x, deriv_y, deriv_xy]),
-                (0, [deriv_x_no_border, deriv_y_no_border, deriv_xy_no_border]),
-                ):
+                    (1, [deriv_x, deriv_y, deriv_xy]),
+                    (0, [deriv_x_no_border, deriv_y_no_border, deriv_xy_no_border]),
+                    ):
                 new_x, new_y, new_x_grid, new_y_grid = GRIDS[border]
 
                 for deriv, error_deriv, dim in zip(
@@ -311,8 +311,8 @@ title_deriv_y = f"EQM_df_dy_2d_all_ratio_{new_ratio}_{n_segments[0]}_segments"
 title_deriv_xy = f"EQM_df_dxy_2d_all_ratio_{new_ratio}_{n_segments[0]}_segments"
 
 for error, title in zip(
-    [error_deriv_x, error_deriv_y, error_deriv_xy],
-    [title_deriv_x, title_deriv_y, title_deriv_xy]):
+        [error_deriv_x, error_deriv_y, error_deriv_xy],
+        [title_deriv_x, title_deriv_y, title_deriv_xy]):
     error = pd.DataFrame(error)
     fig, (ax1, ax2) = plt.subplots(nrows=2, figsize=(10, 13))
 

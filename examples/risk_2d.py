@@ -154,12 +154,12 @@ for idx_nb_obs, n in enumerate(nb_obs):
                             degree=degree,
                             domain_min=float(domain[0]),
                             domain_max=float(domain[1]),
-                            ).T
-                            for argvals, n_segments, degree, domain in zip(
-                                (np.stack((x, y), axis=1)).T,
-                                n_segments, degree, domains
-                            )
-                            ]
+                        ).T
+                        for argvals, n_segments, degree, domain in zip(
+                            (np.stack((x, y), axis=1)).T,
+                            n_segments, degree, domains
+                        )
+                    ]
 
                     # Penalty matrix with best parameter
                     diff_mat = [np.diff(np.eye(b.shape[1]), order_penalty).T
@@ -253,8 +253,8 @@ title_deriv_y = f"EQM_df_dy_2d_risk_{n_segments[0]}_segments"
 title_deriv_xy = f"EQM_df_dxy_2d_risk_{n_segments[0]}_segments"
 
 for error, title in zip(
-    [error_deriv_x, error_deriv_y, error_deriv_xy],
-    [title_deriv_x, title_deriv_y, title_deriv_xy]):
+        [error_deriv_x, error_deriv_y, error_deriv_xy],
+        [title_deriv_x, title_deriv_y, title_deriv_xy]):
     error = pd.DataFrame(error)
 
     fig, (ax1, ax2) = plt.subplots(nrows=2, figsize=(10, 13))

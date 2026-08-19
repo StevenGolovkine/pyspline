@@ -30,7 +30,8 @@ from .psplines_inner import fit_one_dimensional, fit_n_dimensional
 
 
 class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
-    """P-Splines Smoothing.
+    """
+    P-Splines Smoothing.
 
     Parameters
     ----------
@@ -63,6 +64,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
     >>> estimator = TemplateEstimator()
     >>> estimator.fit(X, y)
     TemplateEstimator()
+
     """
 
     def __init__(
@@ -89,7 +91,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         sample_weights: npt.NDArray[np.float64] | None = None,
         domains: list[tuple[float, float]] | tuple[float, float] | None = None,
     ) -> PSplines:
-        """Fit a P-splines model to the given data.
+        """
+        Fit a P-splines model to the given data.
 
         The method fits a P-splines model to the given data using a B-splines
         basis and an optional weights matrix.
@@ -151,7 +154,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                            for xx in new_X]
 
             if not isinstance(domains, list):
-                    raise TypeError("For multi-dim, domains must be " \
+                raise TypeError("For multi-dim, domains must be " \
                     "list[tuple[float,float]]")
 
             basis_n_dimensional = [
@@ -192,7 +195,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         return self
 
     def predict(self, X: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
-        """Predict the response variable values.
+        """
+        Predict the response variable values.
 
         The method predicts the response variable values for the given predictor
         variable values using the fitted P-splines model. If `X` is not
@@ -227,9 +231,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
         ]
 
-        assert self.beta_hat_ is not None
+        if self.beta_hat_ is None:
+            raise ValueError("self.beta_hat_ cannot be None")
         if self.dimension_ == 1:
-
             y_pred = self.beta_hat_ @ basis[0]
         else:
             y_pred = rotated_h_transform(basis[0].T, self.beta_hat_)
@@ -238,7 +242,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         return y_pred
 
     def errors(self, X: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
-        """Estimate the standard errors of the fitted values.
+        """
+        Estimate the standard errors of the fitted values.
 
         Parameters
         ----------
@@ -271,13 +276,18 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 new_X, self.n_segments, self.degree, self.domains_
             )
         ]
-        assert self.diagnostics_["inv_mat"] is not None
+
+        if self.diagnostics_["inv_mat"] is None:
+            raise ValueError("self.diagnostics_['inv_mat'] cannot be None")
         temp = np.diag(basis[0].T @ self.diagnostics_["inv_mat"] @ basis[0])
-        assert self.diagnostics_["residuals_std"] is not None
+        if self.diagnostics_['residuals_std'] is None:
+            raise ValueError("self.diagnostics_['residuals_std']" \
+                             "cannot be None")
         se_eta = np.sqrt(self.diagnostics_["residuals_std"] ** 2 * temp)
-        assert isinstance(se_eta, np.ndarray), "Variable is not a NumPy array"
-        assert np.issubdtype(se_eta.dtype, np.floating), "Array elements must "
-        "be floats"
+        if not isinstance(se_eta, np.ndarray):
+            raise TypeError("se_eta must be a np.ndarray")
+        if not np.issubdtype(se_eta.dtype, np.floating):
+            raise TypeError("Array elements must be floats")
         return se_eta
 
     def derivative(
@@ -286,7 +296,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         order_derivative: int = 1,
         dim: Tuple[int] = (0,)
     ) -> npt.NDArray[np.float64]:
-        """Estimate the derivative of the data.
+        """
+        Estimate the derivative of the data.
 
         Parameters
         ----------
@@ -301,10 +312,12 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         -------
         npt.NDArray[np.float64]
             An array containing the derivatives
+
         """
         X = check_array(X, accept_sparse=True)
         check_is_fitted(self, "is_fitted_")
-        assert self.beta_hat_ is not None
+        if self.beta_hat_ is None:
+            raise ValueError("self.beta_hat_ cannot be None")
 
         if self.dimension_ == 1:
             n_functions = (self.n_segments[0] + self.degree[0]
