@@ -104,7 +104,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             An array of shape `(n_obs,)` containing the weights for each
             observation. If not provided, all observations are assumed to have
             equal weight.
-        domains: list[tuple[float, float]] | tuple[float, 
+        domains: list[tuple[float, float]] | tuple[float,
             float] | None, default=None
             The domains of the B-splines basis.
 
@@ -147,9 +147,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             # Modify y in order to have the right shape to fit in the array algo
             new_X, y, sample_weights = format_X_y(X, y, sample_weights)
             if domains is None:
-                domains = [(float(np.min(xx)), float(np.max(xx))) 
+                domains = [(float(np.min(xx)), float(np.max(xx)))
                            for xx in new_X]
-            
+
             if not isinstance(domains, list):
                     raise TypeError("For multi-dim, domains must be " \
                     "list[tuple[float,float]]")
@@ -226,10 +226,10 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 new_X, self.n_segments, self.degree, self.domains_
             )
         ]
-        
+
         assert self.beta_hat_ is not None
         if self.dimension_ == 1:
-            
+
             y_pred = self.beta_hat_ @ basis[0]
         else:
             y_pred = rotated_h_transform(basis[0].T, self.beta_hat_)
@@ -281,9 +281,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         return se_eta
 
     def derivative(
-        self, 
-        X: npt.NDArray[np.float64], 
-        order_derivative: int = 1, 
+        self,
+        X: npt.NDArray[np.float64],
+        order_derivative: int = 1,
         dim: Tuple[int] = (0,)
     ) -> npt.NDArray[np.float64]:
         """Estimate the derivative of the data.
@@ -296,7 +296,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             Order of the derivative to compute.
         dim: Tuple[int], default=(0,)
             dimension along which to compute the derivative
-        
+
         Returns
         -------
         npt.NDArray[np.float64]
@@ -307,7 +307,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         assert self.beta_hat_ is not None
 
         if self.dimension_ == 1:
-            n_functions = (self.n_segments[0] + self.degree[0] 
+            n_functions = (self.n_segments[0] + self.degree[0]
                            - order_derivative)
             b = basis_bsplines(
                 argvals=X.squeeze(),
@@ -318,7 +318,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
             beta_hat = (
                 np.diff(self.beta_hat_, n=order_derivative)
-                / ((self.domains_[0][1] - self.domains_[0][0]) 
+                / ((self.domains_[0][1] - self.domains_[0][0])
                    / self.n_segments[0])
                 ** order_derivative
             )
@@ -327,9 +327,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         else:
             # Build the B-splines basis
             basis_list: list[npt.NDArray[np.float64]] = []
-            for i, (argvals, n_segments, deg, domain) in enumerate(zip(X.T, 
+            for i, (argvals, n_segments, deg, domain) in enumerate(zip(X.T,
                                 self.n_segments, self.degree, self.domains_)):
-                if i in dim: 
+                if i in dim:
                     deg = deg - order_derivative
                 b = basis_bsplines(
                     argvals=argvals,
@@ -340,21 +340,20 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 )
                 basis_list.append(b)
 
-            # Beta hat 
+            # Beta hat
             diff = self.beta_hat_
             h = 1.0
-            for d in dim: 
+            for d in dim:
                 diff = np.diff(diff, n=int(order_derivative), axis=int(d))
-                h *= ((self.domains_[d][1] - self.domains_[d][0]) / 
+                h *= ((self.domains_[d][1] - self.domains_[d][0]) /
                       self.n_segments[d])** int(order_derivative)
             beta_hat = diff/h
-            
+
             # Derivative
             n_dims = beta_hat.ndim
             basis_indices = [chr(ord('a') + d) for d in range(n_dims)]
-            einsum_str = ''.join(basis_indices) + ',' + ','.join(f"{i}z" 
+            einsum_str = ''.join(basis_indices) + ',' + ','.join(f"{i}z"
                                                 for i in basis_indices) + '->z'
             derivative = np.einsum(einsum_str, beta_hat, *basis_list)
 
         return derivative
-   

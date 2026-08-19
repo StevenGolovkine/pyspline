@@ -32,13 +32,13 @@ def data_2d():
 # Tests cv
 
 def test_cv_one_dimensional(data):
-    pred = cv(data["x"].reshape(-1, 1), data["y"],  n_segments=(4,), 
+    pred = cv(data["x"].reshape(-1, 1), data["y"],  n_segments=(4,),
         degree=(1,), order_penalty=2, domains=(1,5), params=[(0.1,), (1,)])
     expected_pred = np.array([0,0])
     np.testing.assert_array_almost_equal(pred, expected_pred)
 
 def test_cv_n_dimensional(data_2d):
-    pred = cv(data_2d["x"], data_2d["y"],  n_segments=(4,4), degree=(3,3), 
+    pred = cv(data_2d["x"], data_2d["y"],  n_segments=(4,4), degree=(3,3),
        order_penalty=2, domains=[(0,1),(-0.5,0.5)], params=[(0.1,0.1), (1,1)])
     expected_pred = np.array([1.557724, 1.56465329])
     np.testing.assert_array_almost_equal(pred, expected_pred)

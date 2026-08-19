@@ -200,9 +200,9 @@ def test_derivative_n_dimensional_dim_constant(data_2d_dim_constant):
     )
     expected_pred = np.array([0,0])
     np.testing.assert_array_almost_equal(pred1, expected_pred)
-    np.testing.assert_raises(AssertionError, np.testing.assert_array_equal, 
+    np.testing.assert_raises(AssertionError, np.testing.assert_array_equal,
                      pred2, expected_pred)
-    np.testing.assert_raises(AssertionError, np.testing.assert_array_equal, 
+    np.testing.assert_raises(AssertionError, np.testing.assert_array_equal,
                      pred3, expected_pred)
 
 def test_derivative_n_dimensional_3d(data_3d):
