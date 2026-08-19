@@ -13,6 +13,8 @@ import numpy.typing as npt
 
 from typing import Tuple
 
+from numpy.typing import NDArray
+
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.utils.validation import (
     check_X_y,
@@ -28,7 +30,8 @@ from .psplines_inner import fit_one_dimensional, fit_n_dimensional
 
 
 class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
-    """P-Splines Smoothing.
+    """
+    P-Splines Smoothing.
 
     Parameters
     ----------
@@ -61,6 +64,7 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
     >>> estimator = TemplateEstimator()
     >>> estimator.fit(X, y)
     TemplateEstimator()
+
     """
 
     def __init__(
@@ -77,29 +81,34 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         self.degree = degree
         self.order_penalty = order_penalty
 
+        self.basis_: NDArray[np.float64] | list[NDArray[np.float64]
+                                                ] = np.empty((0, 0))
+
     def fit(
         self,
-        X: npt.NDArray[np.float_],
-        y: npt.NDArray[np.float_],
-        sample_weights: npt.NDArray[np.float_] | None = None,
-        domains: list[tuple[np.float_]] | tuple[np.float_] | None = None,
+        X: npt.NDArray[np.float64],
+        y: npt.NDArray[np.float64],
+        sample_weights: npt.NDArray[np.float64] | None = None,
+        domains: list[tuple[float, float]] | tuple[float, float] | None = None,
     ) -> PSplines:
-        """Fit a P-splines model to the given data.
+        """
+        Fit a P-splines model to the given data.
 
         The method fits a P-splines model to the given data using a B-splines
         basis and an optional weights matrix.
 
         Parameters
         ----------
-        X: npt.NDArray[np.float_], shape=(n_obs, n_dimension)
+        X: npt.NDArray[np.float64], shape=(n_obs, n_dimension)
             An array containing the predictor variable values.
-        y: npt.NDArray[np.float_], shape=(n_obs,)
+        y: npt.NDArray[np.float64], shape=(n_obs,)
             An array containing the response variable values.
         sample_weights: npt.NDArray[np.float64] | None, default=None
             An array of shape `(n_obs,)` containing the weights for each
             observation. If not provided, all observations are assumed to have
             equal weight.
-        domains: list[tuple[np.float_]] | tuple[np.float_] | None, default=None
+        domains: list[tuple[float, float]] | tuple[float,
+            float] | None, default=None
             The domains of the B-splines basis.
 
         Returns
@@ -118,8 +127,11 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         if dimension == 1:
             if domains is None:
-                domains = (np.min(X), np.max(X))
-            basis = basis_bsplines(
+                domains = (float(np.min(X)), float(np.max(X)))
+            elif not isinstance(domains, tuple):
+                raise TypeError("For 1D, domains must be tuple[float, float]")
+
+            basis_one_dimensional = basis_bsplines(
                 argvals=X.squeeze(),
                 n_functions=self.n_segments[0] + self.degree[0],
                 degree=self.degree[0],
@@ -128,18 +140,24 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
             results = fit_one_dimensional(
                 data=y,
-                basis=basis,
+                basis=basis_one_dimensional,
                 sample_weights=sample_weights,
-                penalty=self.penalty,
+                penalty=self.penalty[0],
                 order_penalty=self.order_penalty,
             )
+            self.basis_ = basis_one_dimensional
         else:
             # Modify y in order to have the right shape to fit in the array algo
-            X, y, sample_weights = format_X_y(X, y, sample_weights)
+            new_X, y, sample_weights = format_X_y(X, y, sample_weights)
             if domains is None:
-                domains = [(np.min(xx), np.max(xx)) for xx in X]
+                domains = [(float(np.min(xx)), float(np.max(xx)))
+                           for xx in new_X]
 
-            basis = [
+            if not isinstance(domains, list):
+                raise TypeError("For multi-dim, domains must be " \
+                    "list[tuple[float,float]]")
+
+            basis_n_dimensional = [
                 basis_bsplines(
                     argvals=argvals,
                     n_functions=n_segments + degree,
@@ -148,21 +166,21 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                     domain_max=domain[1],
                 )
                 for argvals, n_segments, degree, domain in zip(
-                    X, self.n_segments, self.degree, domains
+                    new_X, self.n_segments, self.degree, domains
                 )
             ]
             results = fit_n_dimensional(
                 data=y,
-                basis_list=basis,
+                basis_list=list(basis_n_dimensional),
                 sample_weights=sample_weights,
                 penalties=self.penalty,
                 order_penalty=self.order_penalty,
             )
+            self.basis_ = basis_n_dimensional
 
         # Export results
         self.is_fitted_ = True
         self.dimension_ = dimension
-        self.basis_ = basis
         self.domains_ = domains if isinstance(domains, list) else [domains]
         self.y_hat_ = results.get("y_hat", None)
         self.beta_hat_ = results.get("beta_hat", None)
@@ -176,8 +194,9 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
         }
         return self
 
-    def predict(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
-        """Predict the response variable values.
+    def predict(self, X: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+        """
+        Predict the response variable values.
 
         The method predicts the response variable values for the given predictor
         variable values using the fitted P-splines model. If `X` is not
@@ -185,12 +204,12 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
 
         Parameters
         ----------
-        X: npt.NDArray[np.float_]
+        X: npt.NDArray[np.float64]
             An array containing the predictor variable values.
 
         Returns
         -------
-        npt.NDArray[np.float_]
+        npt.NDArray[np.float64]
             An array containing the estimated response variable values.
 
         """
@@ -212,6 +231,8 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
         ]
 
+        if self.beta_hat_ is None:
+            raise ValueError("self.beta_hat_ cannot be None")
         if self.dimension_ == 1:
             y_pred = self.beta_hat_ @ basis[0]
         else:
@@ -220,17 +241,18 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
                 y_pred = rotated_h_transform(basis[idx].T, y_pred)
         return y_pred
 
-    def errors(self, X: npt.NDArray[np.float_]) -> npt.NDArray[np.float_]:
-        """Estimate the standard errors of the fitted values.
+    def errors(self, X: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+        """
+        Estimate the standard errors of the fitted values.
 
         Parameters
         ----------
-        X: npt.NDArray[np.float_]
+        X: npt.NDArray[np.float64]
             An array containing the predictor variable values.
 
         Returns
         -------
-        npt.NDArray[np.float_]
+        npt.NDArray[np.float64]
             An array containing standard errors of the fitted values.
 
         """
@@ -255,38 +277,96 @@ class PSplines(BaseEstimator, RegressorMixin):  # type: ignore
             )
         ]
 
+        if self.diagnostics_["inv_mat"] is None:
+            raise ValueError("self.diagnostics_['inv_mat'] cannot be None")
         temp = np.diag(basis[0].T @ self.diagnostics_["inv_mat"] @ basis[0])
+        if self.diagnostics_['residuals_std'] is None:
+            raise ValueError("self.diagnostics_['residuals_std']" \
+                             "cannot be None")
         se_eta = np.sqrt(self.diagnostics_["residuals_std"] ** 2 * temp)
+        if not isinstance(se_eta, np.ndarray):
+            raise TypeError("se_eta must be a np.ndarray")
+        if not np.issubdtype(se_eta.dtype, np.floating):
+            raise TypeError("Array elements must be floats")
         return se_eta
 
-    def derivative(self, X: npt.NDArray[np.float_], order_derivative: int = 1):
-        """Estimate the derivative of the data.
+    def derivative(
+        self,
+        X: npt.NDArray[np.float64],
+        order_derivative: int = 1,
+        dim: Tuple[int] = (0,)
+    ) -> npt.NDArray[np.float64]:
+        """
+        Estimate the derivative of the data.
 
         Parameters
         ----------
-        X: npt.NDArray[np.float_]
+        X: npt.NDArray[np.float64]
             An array containing the predictor variable values.
         order_derivative: int, default=1
             Order of the derivative to compute.
+        dim: Tuple[int], default=(0,)
+            dimension along which to compute the derivative
+
+        Returns
+        -------
+        npt.NDArray[np.float64]
+            An array containing the derivatives
 
         """
         X = check_array(X, accept_sparse=True)
         check_is_fitted(self, "is_fitted_")
+        if self.beta_hat_ is None:
+            raise ValueError("self.beta_hat_ cannot be None")
 
-        if self.dimension_ > 1:
-            raise NotImplementedError("Not implemented for dimension > 1.")
+        if self.dimension_ == 1:
+            n_functions = (self.n_segments[0] + self.degree[0]
+                           - order_derivative)
+            b = basis_bsplines(
+                argvals=X.squeeze(),
+                n_functions=n_functions,
+                degree=self.degree[0] - order_derivative,
+                domain_min=self.domains_[0][0],
+                domain_max=self.domains_[0][1],
+            )
+            beta_hat = (
+                np.diff(self.beta_hat_, n=order_derivative)
+                / ((self.domains_[0][1] - self.domains_[0][0])
+                   / self.n_segments[0])
+                ** order_derivative
+            )
+            derivative = b.T @ beta_hat
 
-        n_functions = self.n_segments[0] + self.degree[0] - order_derivative
-        basis = basis_bsplines(
-            argvals=X.squeeze(),
-            n_functions=n_functions,
-            degree=self.degree[0] - order_derivative,
-            domain_min=self.domains_[0][0],
-            domain_max=self.domains_[0][1],
-        )
-        beta_hat = (
-            np.diff(self.beta_hat_, n=order_derivative)
-            / ((self.domains_[0][1] - self.domains_[0][0]) / self.n_segments[0])
-            ** order_derivative
-        )
-        return basis.T @ beta_hat
+        else:
+            # Build the B-splines basis
+            basis_list: list[npt.NDArray[np.float64]] = []
+            for i, (argvals, n_segments, deg, domain) in enumerate(zip(X.T,
+                                self.n_segments, self.degree, self.domains_)):
+                if i in dim:
+                    deg = deg - order_derivative
+                b = basis_bsplines(
+                    argvals=argvals,
+                    n_functions=n_segments + deg,
+                    degree=deg,
+                    domain_min=domain[0],
+                    domain_max=domain[1],
+                )
+                basis_list.append(b)
+
+            # Beta hat
+            diff = self.beta_hat_
+            h = 1.0
+            for d in dim:
+                diff = np.diff(diff, n=int(order_derivative), axis=int(d))
+                h *= ((self.domains_[d][1] - self.domains_[d][0]) /
+                      self.n_segments[d])** int(order_derivative)
+            beta_hat = diff/h
+
+            # Derivative
+            n_dims = beta_hat.ndim
+            basis_indices = [chr(ord('a') + d) for d in range(n_dims)]
+            einsum_str = ''.join(basis_indices) + ',' + ','.join(f"{i}z"
+                                                for i in basis_indices) + '->z'
+            derivative = np.einsum(einsum_str, beta_hat, *basis_list)
+
+        return derivative

@@ -31,6 +31,50 @@ def data_2d():
     y = np.array([1, 2, 3, 4, 5, 6])
     return {"x": x, "y": y}
 
+@pytest.fixture
+def data_2d_y_constant():
+    x = np.array(
+        [
+            [0.0, -0.5],
+            [0.0, 0.0],
+            [0.0, 0.5],
+            [0.5, -0.5],
+            [1.0, 0.0],
+            [1.0, 0.5],
+        ]
+    )
+    y = np.array([2, 2, 2, 2, 2, 2])
+    return {"x": x, "y": y}
+
+@pytest.fixture
+def data_2d_dim_constant():
+    x = np.array(
+        [
+            [0.0, 0.0],
+            [-0.5, 0.0],
+            [0.25, 0.5],
+            [0.5, 0.5],
+            [1.0, 1.0],
+            [0.5, 1.0],
+        ]
+    )
+    y = np.array([1, 1, 2, 2, 3, 3])
+    return {"x": x, "y": y}
+
+@pytest.fixture
+def data_3d():
+    x = np.array(
+        [
+            [0.0, 0.0, 1.0],
+            [-0.25, 0.25, 0.5],
+            [1.0, 0.5, 0.25],
+            [0.25, -0.5, -0.5],
+            [-0.5, 1.0, -0.25],
+            [0.5, -0.25, 0.0],
+        ]
+    )
+    y = np.array([1, 2, 3, 4, 5, 6])
+    return {"x": x, "y": y}
 
 ###############################################################################
 # Tests PSplines
@@ -125,9 +169,58 @@ def test_derivative_one_dimensional(data):
     expected_pred = np.array([1, 1])
     np.testing.assert_array_almost_equal(pred, expected_pred)
 
-
-def test_derivative_n_dimensional(data_2d):
+def test_derivative_n_dimensional_constant(data_2d_y_constant):
     ps = PSplines(penalty=(1, 1), n_segments=(4, 4), degree=(1, 1))
-    ps.fit(data_2d["x"], data_2d["y"])
-    with pytest.raises(NotImplementedError):
-        ps.derivative(X=data_2d["x"], order_derivative=1)
+    ps.fit(data_2d_y_constant["x"], data_2d_y_constant["y"])
+    pred1 = ps.derivative(
+        ([0.25, -0.25], [0.75, 0.25]), order_derivative=1, dim = (0,)
+    )
+    pred2 = ps.derivative(
+        ([0.25, -0.25], [0.75, 0.25]), order_derivative=1, dim = (1,)
+    )
+    pred3 = ps.derivative(
+        ([0.25, -0.25], [0.75, 0.25]), order_derivative=1, dim = (0,1)
+    )
+    expected_pred = np.array([0,0])
+    np.testing.assert_array_almost_equal(pred1, expected_pred)
+    np.testing.assert_array_almost_equal(pred2, expected_pred)
+    np.testing.assert_array_almost_equal(pred3, expected_pred)
+
+def test_derivative_n_dimensional_dim_constant(data_2d_dim_constant):
+    ps = PSplines(penalty=(1, 1), n_segments=(4, 4), degree=(1, 1))
+    ps.fit(data_2d_dim_constant["x"], data_2d_dim_constant["y"])
+    pred1 = ps.derivative(
+        ([0.25, -0.25], [0.75, 0.25]), order_derivative=1, dim = (0,)
+    )
+    pred2 = ps.derivative(
+        ([0.25, -0.25], [0.75, 0.25]), order_derivative=1, dim = (1,)
+    )
+    pred3 = ps.derivative(
+        ([0.25, -0.25], [0.75, 0.25]), order_derivative=1, dim = (0,1)
+    )
+    expected_pred = np.array([0,0])
+    np.testing.assert_array_almost_equal(pred1, expected_pred)
+    np.testing.assert_raises(AssertionError, np.testing.assert_array_equal,
+                     pred2, expected_pred)
+    np.testing.assert_raises(AssertionError, np.testing.assert_array_equal,
+                     pred3, expected_pred)
+
+def test_derivative_n_dimensional_3d(data_3d):
+    ps = PSplines(penalty=(1, 1, 1), n_segments=(4, 4, 4), degree=(1, 1, 1))
+    ps.fit(data_3d["x"], data_3d["y"])
+    ps.derivative(
+        ([0.25, -0.25, 0.25], [0.75, 0.25, 0.5]), order_derivative=1, dim = (0,)
+    )
+    ps.derivative(
+        ([0.5, -0.25, 0.75], [0.75, 0.25, 0.5]),
+        order_derivative=1, dim = (1,)
+    )
+    ps.derivative(
+        ([-0.25, -0.5, 0.25], [0.75, 0.25, 0.5]),
+        order_derivative=1, dim = (0,1)
+    )
+    ps.derivative(
+        ([0.25, 0.25, 0.5], [0.75, 0.25, 0.5]),
+        order_derivative=1, dim = (0,1,2)
+    )
+
